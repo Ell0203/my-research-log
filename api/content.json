@@ -1,0 +1,121 @@
+{
+  "sections": [
+    {
+      "id": "projects",
+      "title": "Projects",
+      "color": "#cba6f7",
+      "desc": "Ongoing development and shipped experiments.",
+      "items": [
+        {
+          "title": "ResearchLog 구축기 및 업데이트 진행 타임라인",
+          "date": "2026-02-20",
+          "formatted_date": "Feb 20, 2026",
+          "tags": [
+            "Web",
+            "Architecture",
+            "Flask",
+            "Markdown",
+            "Update"
+          ],
+          "content": "<p><strong>Personal Research Archive</strong>를 구축하기 위해 Static Site의 간결함과 Dynamic App의 편의성을 결합한 <strong>Hybrid Architecture</strong>를 설계하고 구현했습니다. 최근 검색 기능 및 태그 필터링 등 사용자 편의성 기능이 추가되었습니다.</p>\n<!-- more -->\n\n<h2 id=\"version-timeline\">🚀 Version Timeline</h2>\n<h3 id=\"v11-2026-02-20\">v1.1 업데이트 (2026-02-20)</h3>\n<ul>\n<li><strong>클라이언트 사이드 실시간 검색</strong>: 단축키 <code>/</code> 지원 및 입력 즉시 로컬에서 결과값을 바로 보여주는 검색 기능 (검색어 하이라이팅 포함)</li>\n<li><strong>태그 필터링 추가</strong>: 전체 항목 보기 및 각 섹션에서 태그 필터 바(Tag Filter Bar)를 활용해 문서를 직관적으로 분류</li>\n<li><strong>사용자 경험(UI/UX) 개선</strong>: 긴 문서 스크롤 시 상단에 읽기 진행률(Reading Progress Bar) 표시, <code>Esc</code> 키로 검색 빠져나오기 지원</li>\n</ul>\n<h3 id=\"v10-2026-02-17\">v1.0 구축 (2026-02-17)</h3>\n<ul>\n<li><strong>Core</strong>: Python Flask Server + Vanilla JS Frontend 기반 Hybrid Architecture</li>\n<li><strong>Data</strong>: Markdown Files (제로-데이터베이스 구조)</li>\n<li><strong>기능</strong>: 폴더에 파일을 넣으면 자동으로 Frontmatter가 파싱되어 사이트에 포스팅되는 워크플로우 적용</li>\n<li><strong>디자인</strong>: 모바일 퍼스트 프론트엔드, 고대비 다크 모드(High-Contrast Dark Mode) 및 네온 그린 강조 컬러 도입</li>\n</ul>\n<hr />\n<h2 id=\"1-project-goal\">1. Project Goal</h2>\n<p>복잡한 CMS(WordPress 등)나 무거운 프레임워크(React/Next.js) 없이, <strong>\"가장 빠르고 간편하게\"</strong> 기록을 남길 수 있는 나만의 공간을 만드는 것이 목표였습니다.</p>\n<h2 id=\"2-architecture-evolution\">2. Architecture Evolution</h2>\n<h3 id=\"phase-1-static-site-pure-htmljs\">Phase 1: Static Site (Pure HTML/JS)</h3>\n<p>처음에는 <code>data.js</code>라는 JSON 파일에 모든 글을 적어넣는 방식을 시도했습니다.\n*   <strong>장점</strong>: 서버가 필요 없음. 브라우저에서 바로 열림.\n*   <strong>단점</strong>: 글을 쓸 때마다 JSON 문법(<code>{, }, \"</code>)을 지켜야 해서 매우 불편함.</p>\n<h3 id=\"phase-2-hybrid-flask-markdown\">Phase 2: Hybrid (Flask + Markdown)</h3>\n<p>\"폴더에 메모장(Markdown) 파일을 던져넣으면 알아서 사이트에 떴으면 좋겠다\"는 니즈를 실현하기 위해 Python Flask를 도입했습니다.</p>\n<ol>\n<li><strong>Backend (<code>app.py</code>)</strong>: <code>content/</code> 폴더 내의 <code>.md</code> 파일들을 스캔하고, HTML로 변환하여 API로 제공합니다.</li>\n<li><strong>Frontend (<code>app.js</code>)</strong>: API에서 데이터를 받아와 화면에 렌더링합니다.</li>\n<li><strong>Content</strong>: 각 폴더(<code>projects</code>, <code>ideas</code> 등)에 마크다운 파일만 관리하면 됩니다.</li>\n</ol>\n<h2 id=\"3-key-tech-stack\">3. Key Tech Stack</h2>\n<ul>\n<li><strong>Backend</strong>: Python 3.13, Flask, Python-Frontmatter</li>\n<li><strong>Frontend</strong>: HTML5, CSS3 (Variables for Dark Mode), Vanilla JavaScript</li>\n<li><strong>Design</strong>: High-Contrast Dark Mode (Neon Green Accent)</li>\n</ul>",
+          "summary": "<p><strong>Personal Research Archive</strong>를 구축하기 위해 Static Site의 간결함과 Dynamic App의 편의성을 결합한 <strong>Hybrid Architecture</strong>를 설계하고 구현했습니다. 최근 검색 기능 및 태그 필터링 등 사용자 편의성 기능이 추가되었습니다.</p>",
+          "filename": "2026-02-17_research_log_build.md",
+          "slug": "2026-02-17_research_log_build",
+          "reading_time": 3,
+          "word_count": 291,
+          "category": "projects"
+        },
+        {
+          "title": "Smart News Aggregator (News Bot) 분석",
+          "date": "2026-02-16",
+          "formatted_date": "Feb 16, 2026",
+          "tags": [
+            "Python",
+            "Crawling",
+            "Telegram",
+            "Automation"
+          ],
+          "content": "<p><strong>Naver Finance</strong>의 주요 뉴스를 실시간으로 수집하여 <strong>Telegram</strong>으로 알림을 보내주는 자동화 봇입니다. (Project: <code>PR01</code>)</p>\n<ul>\n<li><strong>Target</strong>: 네이버 금융 주요 뉴스 &amp; 실시간 속보</li>\n<li><strong>Notification</strong>: 텔레그램 봇 API</li>\n<li><strong>Schedule</strong>: 15분 간격 자동 실행</li>\n</ul>\n<!-- more -->\n\n<h2 id=\"1-system-architecture\">1. System Architecture</h2>\n<p>이 프로젝트는 크게 <strong>수집(Scraper)</strong>, <strong>저장(Database)</strong>, <strong>알림(Bot)</strong>, <strong>스케줄링(Scheduler)</strong>의 4가지 모듈로 구성되어 있습니다.</p>\n<h3 id=\"a-scraper-scrapersnaver_financepy\">A. Scraper (<code>scrapers/naver_finance.py</code>)</h3>\n<ul>\n<li><code>requests</code>와 <code>BeautifulSoup</code>을 사용하여 네이버 금융 뉴스 페이지를 크롤링합니다.</li>\n<li><strong>Encoding Issue</strong>: 네이버 금융이 <code>euc-kr</code>을 사용하므로, <code>response.content.decode('euc-kr', 'replace')</code>로 디코딩 처리가 되어 있습니다.</li>\n<li><strong>Logic</strong>:<ol>\n<li>목록(<code>ul.newsList</code>)에서 기사 제목, 링크, 요약문 추출</li>\n<li><code>hashlib.md5(link)</code>를 사용하여 기사별 고유 ID 생성 (중복 발송 방지)</li>\n</ol>\n</li>\n</ul>\n<h3 id=\"b-database-databasepy\">B. Database (<code>database.py</code>)</h3>\n<ul>\n<li><strong>SQLite</strong> (<code>news_bot.db</code>)를 사용하여 가볍게 로컬에 데이터를 저장합니다.</li>\n<li>이미 보낸 기사는 DB에 저장하여, 다음 크롤링 때 중복해서 보내지 않도록 필터링합니다.</li>\n</ul>\n<h3 id=\"c-telegram-service-servicestelegram_botpy\">C. Telegram Service (<code>services/telegram_bot.py</code>)</h3>\n<ul>\n<li>Telegram Bot API의 <code>sendMessage</code> 메서드를 사용합니다.</li>\n<li><code>HTML</code> Parse Mode를 활성화하여, 알림 메시지에 굵은 글씨나 링크 등을 포함할 수 있습니다.</li>\n</ul>\n<h3 id=\"d-scheduler-schedulerpy\">D. Scheduler (<code>scheduler.py</code>)</h3>\n<ul>\n<li>Python <code>apscheduler</code> 라이브러리를 사용합니다.</li>\n<li><code>BackgroundScheduler</code>가 메인 프로세스와 별개로 백그라운드에서 주기적으로 크롤링 함수를 실행합니다.</li>\n</ul>\n<h2 id=\"2-key-code-snippet\">2. Key Code Snippet</h2>\n<p>가장 핵심이 되는 크롤링 및 중복 검사 로직입니다.</p>\n<pre class=\"codehilite\"><code class=\"language-python\"># Unique ID Generation\nnews_id = hashlib.md5(link.encode()).hexdigest()\n\n# Deduplication Logic\nif item['id'] not in seen_ids:\n    all_news.append(item)\n</code></pre>\n\n<h2 id=\"3-lesson-learned\">3. Lesson Learned</h2>\n<ul>\n<li><strong>Encoding</strong>: 한국 웹사이트 크롤링 시 <code>utf-8</code>이 아닌 <code>euc-kr</code> 인코딩 처리가 필수적임.</li>\n<li><strong>Blocking</strong>: 봇 탐지를 피하기 위해 <code>User-Agent</code> 헤더를 브라우저처럼 위장해야 함.</li>\n</ul>",
+          "summary": "<p><strong>Naver Finance</strong>의 주요 뉴스를 실시간으로 수집하여 <strong>Telegram</strong>으로 알림을 보내주는 자동화 봇입니다. (Project: <code>PR01</code>)</p>\n<ul>\n<li><strong>Target</strong>: 네이버 금융 주요 뉴스 &amp; 실시간 속보</li>\n<li><strong>Notification</strong>: 텔레그램 봇 API</li>\n<li><strong>Schedule</strong>: 15분 간격 자동 실행</li>\n</ul>",
+          "filename": "2026-02-17_smart_news_bot.md",
+          "slug": "2026-02-17_smart_news_bot",
+          "reading_time": 2,
+          "word_count": 224,
+          "category": "projects"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "title": "Research",
+      "color": "#89b4fa",
+      "desc": "Deep dives, technical analyses, and findings.",
+      "items": []
+    },
+    {
+      "id": "study",
+      "title": "Study Logs",
+      "color": "#a6e3a1",
+      "desc": "Daily learnings, notes, and breakdowns.",
+      "items": [
+        {
+          "title": "반도체 및 회로 설계 분야 전체 조망 (MOC)",
+          "date": "2026-02-21",
+          "formatted_date": "Feb 21, 2026",
+          "tags": [
+            "Overview",
+            "Semiconductor",
+            "Circuit Design",
+            "Study"
+          ],
+          "content": "<p>대학원 진학 및 향후 연구 분야 선정을 위해 반도체와 회로 설계 분야의 전체 지형도를 정리한 문서다. 이 문서는 각 세부 분야의 핵심 개념, 역할, 그리고 다른 영역들과 어떻게 연결되는지를 파악하기 위한 'Map of Content (MOC)' 역할을 한다.</p>\n<!-- more -->\n\n<hr />\n<p>반도체와 시스템 설계 분야는 크게 <strong>아날로그, 디지털, 메모리, 신호 처리 및 통신, 소자 및 공정, EDA 및 검증</strong>으로 나눌 수 있다. 각 분야는 독립적으로 존재하지 않으며, 거대한 칩(SoC)을 이루기 위해 톱니바퀴처럼 맞물려 돌아간다.</p>\n<h2 id=\"1-analog-mixed-signal\">1. Analog &amp; Mixed-Signal (아날로그/혼성 신호)</h2>\n<p>자연계의 연속적인 신호(빛, 소리, 전파 등)를 다루거나 전력을 관리하는 분야.</p>\n<ul>\n<li><strong>Analog Circuit Design (아날로그 회로 설계)</strong>: 모든 회로의 기본. Op-Amp 설계, 피드백 이론, 주파수 응답 및 안정성 분석이 핵심이다.<ul>\n<li><em>핵심 개념</em>: Op-Amp, Negative Feedback, Phase Margin, Noise Analysis, Biasing Techniques.</li>\n</ul>\n</li>\n<li><strong>Mixed-Signal Design (혼성 신호 설계)</strong>: 아날로그와 디지털의 경계. 아날로그 신호를 0과 1로 변환(ADC)하거나 반대로 변환(DAC)하는 회로를 설계한다.<ul>\n<li><em>핵심 개념</em>: ADC(SAR, Sigma-Delta, Pipeline), DAC, PLL (Phase-Locked Loop), Clock Generation.</li>\n</ul>\n</li>\n<li><strong>RF Circuit Design (고주파 회로 설계)</strong>: 무선 통신 기기(스마트폰, Wi-Fi 공유기 등)의 송수신기를 설계하는 분야. 주파수가 매우 높아 독특한 전송선로 이론과 노이즈 매칭이 필요하다.<ul>\n<li><em>핵심 개념</em>: LNA (Low Noise Amplifier), Mixer, VCO, Power Amplifier, Impedance Matching.</li>\n</ul>\n</li>\n<li><strong>Power Management IC (PMIC, 전력 관리 회로)</strong>: 배터리 전압을 칩 내부의 각 블록이 필요로 하는 다양한 전압으로 안정적으로 변환하고 공급하는 회로 설계. 스마트폰과 전기차에서 그 중요성이 폭발적으로 증가하고 있다.<ul>\n<li><em>핵심 개념</em>: LDO, DC-DC Converter (Buck, Boost), Battery Management.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"2-digital-vlsi-architecture\">2. Digital &amp; VLSI &amp; Architecture (디지털/집적회로/아키텍처)</h2>\n<p>정보를 0과 1의 논리 연산으로 처리하고, 이를 수억 개의 트랜지스터로 구현하는 분야.</p>\n<ul>\n<li><strong>Digital Circuit Design (디지털 하드웨어 설계)</strong>: 논리 게이트를 조합하여 원하는 기능을 수행하는 회로를 설계한다. 주로 Verilog/VHDL 같은 하드웨어 기술 언어(HDL)를 사용한다.<ul>\n<li><em>핵심 개념</em>: Combinational/Sequential Logic, Finite State Machine (FSM), Timing Analysis.</li>\n</ul>\n</li>\n<li><strong>VLSI Design (초고밀도 집적회로 설계)</strong>: 수많은 하드웨어 블록들을 실제 실리콘 위에 어떻게 배치하고 배선할 것인가(Place &amp; Route)를 다루는 백엔드(Back-end) 설계 분야.<ul>\n<li><em>핵심 개념</em>: Standard Cell, Floorplanning, Clock Tree Synthesis (CTS), Signal Integrity.</li>\n</ul>\n</li>\n<li><strong>Computer Architecture (컴퓨터 구조)</strong>: 하드웨어의 두뇌인 프로세서가 명령어를 어떻게 효율적으로, 빠르게 처리할 것인지 설계하는 고차원적인 분야.<ul>\n<li><em>핵심 개념</em>: ISA (RISC-V, ARM), Pipelining, Cache Hierarchy, GPU, Accelerators (NPU).</li>\n</ul>\n</li>\n<li><strong>SoC Design (System-on-Chip)</strong>: CPU, GPU, 메모리 컨트롤러, 모뎀 등 다양한 설계 자산(IP)들을 하나의 거대한 칩으로 엮어내어 칩 전체의 통신 및 시스템 전력을 설계한다.<ul>\n<li><em>핵심 개념</em>: Bus Protocol (AMBA AXI/AHB), IP Reuse, Power Domain.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"3-memory-emerging-devices\">3. Memory &amp; Emerging Devices (메모리 및 소자)</h2>\n<p>데이터를 저장하는 곳. 데이터 센터와 AI 반도체 시대를 맞아 단연코 가장 중요한 병목 지점(Bottleneck)이자 핵심 혁신 분야.</p>\n<ul>\n<li><strong>Memory Design (메모리 설계)</strong>: SRAM, DRAM, 낸드 플래시 메모리의 셀 구조와 단위 데이터를 어떻게 빠르고 에러 없이 읽고 쓸 수 있는지를 설계.<ul>\n<li><em>핵심 개념</em>: 1T1C (DRAM), 6T cell (SRAM), Sense Amplifier, Refresh.</li>\n</ul>\n</li>\n<li><strong>Emerging Memory (차세대 메모리)</strong>: 기존 실리콘 기반 메모리의 한계를 극복하려는 새로운 물질과 구조의 메모리. 전원이 꺼져도 정보를 기억하면서도 속도는 DRAM만큼 빠른 이상적인 메모리를 찾기 위한 연구 분야.<ul>\n<li><em>핵심 개념</em>: MRAM(자기), ReRAM(저항), PCRAM(상변화).</li>\n</ul>\n</li>\n<li><strong>Semiconductor Physics &amp; Process (반도체 물리 및 공정)</strong>: 트랜지스터가 동작하는 본질적인 물리적 원리를 이해(밴드 이론 등)하고, 나노미터 단위의 극초미세 패턴을 깎아내고 쌓는 제조 공정 기술.<ul>\n<li><em>관련 노드</em>: <code>[[Semiconductor Physics]]</code>, <code>[[CMOS Process]]</code></li>\n</ul>\n</li>\n<li><strong>Device Modeling (소자 모델링)</strong>: 물리적 트랜지스터의 동작을 수식으로 만들어, 회로 시뮬레이션 프로그램(SPICE)이 계산할 수 있도록 모델 형태(BSIM 등)로 제공하는 분야.<ul>\n<li><em>관련 노드</em>: <code>[[Device Modeling]]</code></li>\n</ul>\n</li>\n</ul>\n<h2 id=\"4-signal-processing-verification-layout\">4. Signal Processing &amp; Verification &amp; Layout (신호 처리, 검증, 레이아웃)</h2>\n<ul>\n<li><strong>Signal Processing &amp; Communication Systems (신호 처리 및 통신)</strong>: 아날로그 신호를 디지털로 바꾼 후, 노이즈를 걸러내고 원하는 정보만 추출하거나 인코딩하는 기술 영역. 물리적인 RF 회로 위에서 돌아가는 필수 알고리즘 체계다.<ul>\n<li><em>관련 노드</em>: <code>[[Signal Processing]]</code>, <code>[[Communication Systems]]</code></li>\n</ul>\n</li>\n<li><strong>Verification &amp; EDA Tools (검증 및 설계 자동화 도구)</strong>: 설계한 칩에 버그가 없는지 소프트웨어적으로 100% 검증해 내는 방법론과, 칩 설계를 도와주는 강력한 소프트웨어 툴(EDA)을 다루는 분야.<ul>\n<li><em>관련 노드</em>: <code>[[Verification]]</code>, <code>[[EDA Tools]]</code></li>\n</ul>\n</li>\n<li><strong>Layout Design (레이아웃 설계)</strong>: 회로도를 실제 실리콘 웨이퍼 위에 그릴 수 있도록 평면적인 물리적 구조(마스크 패턴)로 변환하는 작업. 아날로그 설계에서는 여전히 수작업 레이아웃의 비중과 노하우가 매우 중요하다.<ul>\n<li><em>관련 노드</em>: <code>[[Layout Design]]</code></li>\n</ul>\n</li>\n</ul>\n<hr />\n<h3 id=\"_1\">마무리 (대학원 선택 기준)</h3>\n<p>이 전체 지도는 <code>[[반도체 회로 설계 맵]]</code>을 중심으로 펼쳐져 있다. 앞으로 공부하면서 각 노드에 노트를 추가하고, 이 지도 안에서 어떤 영역이 나를 흥미롭게 하는지 지속적으로 탐색해 보자. </p>\n<p>특히 <code>[[대학원 선택 기준]]</code> 노트를 통해 내가 시뮬레이션(EDA/Verification)을 좋아하는지, 물리적 구현(Layout/Process)에 관심이 있는지, 아니면 시스템 레벨 구조(Computer Architecture/SoC)에 끌리는지를 파악해 보면 향후 진로를 결정하는 데 큰 도움이 될 것이다.</p>",
+          "summary": "<p>대학원 진학 및 향후 연구 분야 선정을 위해 반도체와 회로 설계 분야의 전체 지형도를 정리한 문서다. 이 문서는 각 세부 분야의 핵심 개념, 역할, 그리고 다른 영역들과 어떻게 연결되는지를 파악하기 위한 'Map of Content (MOC)' 역할을 한다.</p>",
+          "filename": "semiconductor_overview.md",
+          "slug": "semiconductor_overview",
+          "reading_time": 6,
+          "word_count": 713,
+          "category": "study"
+        }
+      ]
+    },
+    {
+      "id": "ideas",
+      "title": "Ideas",
+      "color": "#f9e2af",
+      "desc": "Sparks, hypotheses, and future concepts.",
+      "items": []
+    },
+    {
+      "id": "notes",
+      "title": "Notes",
+      "color": "#89dceb",
+      "desc": "Quick notes and references.",
+      "items": []
+    },
+    {
+      "id": "bookmarks",
+      "title": "Bookmarks",
+      "color": "#fab387",
+      "desc": "Saved links and resources.",
+      "items": []
+    }
+  ],
+  "all_tags": [
+    "Architecture",
+    "Automation",
+    "Circuit Design",
+    "Crawling",
+    "Flask",
+    "Markdown",
+    "Overview",
+    "Python",
+    "Semiconductor",
+    "Study",
+    "Telegram",
+    "Update",
+    "Web"
+  ],
+  "total_entries": 3,
+  "total_reading_time": 11,
+  "total_word_count": 1228
+}
