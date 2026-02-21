@@ -7,6 +7,25 @@
       "desc": "Ongoing development and shipped experiments.",
       "items": [
         {
+          "title": "Stock Screener (조용한 세력 매집 탐지기) 개발",
+          "date": "2026-02-21",
+          "formatted_date": "Feb 21, 2026",
+          "tags": [
+            "Python",
+            "FinanceDataReader",
+            "Google Sheets API",
+            "Pandas",
+            "스크리너"
+          ],
+          "content": "<p><strong>조용한 세력 매집(Quiet Accumulation)</strong> 패턴과 <strong>RSI 과매도 반등(Oversold Rebound)</strong> 패턴을 탐지하여, 그 결과를 구글 스프레드시트에 자동으로 기록하는 다중 주식 스크리너입니다. (Project: <code>05_stock_screener</code>)</p>\n<ul>\n<li><strong>Target</strong>: 한국 증시 (KOSPI &amp; KOSDAQ), 시가총액 1,000억 이상 종목</li>\n<li><strong>Notification</strong>: Google Sheets 자동 업데이트 (<code>Stock_Screener</code> 문서)</li>\n<li><strong>Schedule</strong>: 사용자 수동 크론식, 혹은 배치 처리(현재 스크립트 실행 시 전종목 순회)</li>\n</ul>\n<!-- more -->\n\n<h2 id=\"1-system-architecture\">1. System Architecture</h2>\n<p>이 프로젝트는 현재 두 개의 스크립트로 분리되어, 각기 다른 기술적 분석 전략을 통해 종목을 필터링합니다. 필터링된 결과는 구글 스프레드시트의 각기 다른 탭(<code>Worksheet</code>)으로 일괄 업로드됩니다.</p>\n<h3 id=\"a-1-macd-screener_mapy\">A. 전략 1: 이평선 수렴 &amp; MACD (<code>screener_ma.py</code>)</h3>\n<p>이른바 \"조용한 매집\"을 찾는 스크리너입니다.\n*   <strong>이동평균 수렴</strong>: 주가가 최근 횡보하며 5일선, 10일선, 20일선이 아주 좁은 간격(예: 3% 이내)으로 모여 있어야 함.\n*   <strong>거래량 급증</strong>: 최근 5일 이내에 과거 평균(20일치) 거래량 대비 2배 이상 터진 날이 있어야 함.\n*   <strong>MACD 골든크로스</strong>: MACD 라인이 최근 5일 내에 Signal 라인을 상향 돌파했거나, 간격이 크게 좁혀진 상태여야 함.\n*   <strong>구글 시트 출력 탭</strong>: <code>KOSPI</code>, <code>KOSDAQ</code></p>\n<h3 id=\"b-2-rsi-screener_rsipy\">B. 전략 2: RSI 과매도 &amp; 볼린저 하단 반등 (<code>screener_rsi.py</code>)</h3>\n<p>\"역추세 매매 모델\"로, 지나친 하락 후 반등하는 순간을 잡습니다.\n*   <strong>RSI(14)</strong>: 최근 5일 내에 RSI가 30 이하(과매도)로 진입한 후, 현재 시점에서 다시 30 위로 고개를 들어야 함.\n*   <strong>볼린저 밴드(20, 2)</strong>: 최근 5일 내에 종가가 볼린저 하단선 아래로 이탈했다가, 현재 시점에서 다시 밴드 내부(하단선 이상)로 진입해야 함.\n*   <strong>구글 시트 출력 탭</strong>: <code>RSI_KOSPI</code>, <code>RSI_KOSDAQ</code></p>\n<h3 id=\"c-gspread-financedatareader\">C. 데이터 파이프라인 및 연동 (<code>gspread</code> &amp; <code>FinanceDataReader</code>)</h3>\n<ul>\n<li><strong>가격 데이터</strong>: <code>FinanceDataReader</code>(<code>fdr</code>)를 이용해 90일~130일치 OHLCV(고저평종, 거래량) 데이터를 순차적으로 수집.</li>\n<li><strong>출력</strong>: <code>gspread</code> 라이브러리를 통해 Google Service Account(<code>credentials.json</code>)로 인증한 뒤, 지정된 스프레드시트에 DataFrame을 투사.</li>\n</ul>\n<h2 id=\"2-key-challenges-troubleshooting\">2. Key Challenges &amp; Troubleshooting</h2>\n<h3 id=\"a-api-krx\">A. API 차단 (KRX 공식 포털 접근 제한)</h3>\n<p>초기에는 수급 데이터(외국인, 연기금 무빙) 조회를 위해 한국거래소(KRX) 데이터 포털의 무단(비공식) API를 <code>requests</code>로 직접 호출하려 했습니다.\n하지만 403 Forbidden(html 반환) 등의 이슈가 발생.\n*   <strong>원인</strong>: KRX가 봇 차단 정책을 강화하여 브라우저 환경이 아닌 스크립트를 통한 무단 조회 및 세션 토큰 우회를 철저히 차단함.\n*   <strong>해결</strong>: 기술적 한계 및 안정성 문제로 판단, 1단계로는 순수 \"기술적 지표(이평선, 거래량, RSI, 볼린저)\" 기반 스크리너로 노선을 변경. 수급 데이터가 필요할 경우 향후 '한국투자증권(KIS) Open API'를 활용하는 방안으로 전환하기로 결론.</p>\n<h3 id=\"b\">B. 구글 클라우드 권한 및 인증 구성</h3>\n<ul>\n<li>무료로 사용할 수 있는 Service Account(서비스 계정) JSON 인증키를 발급.</li>\n<li><code>Google Sheets API</code>와 <code>Google Drive API</code> 2가지를 사용 설정하여 어플리케이션이 구글 시트에 \"편집자\"로 접근할 수 있게 구성 완료.</li>\n</ul>\n<h3 id=\"c\">C. 퍼포먼스 및 시총 필터링</h3>\n<p>전체 상장 종목(약 2,700여 개)을 하나씩 API 호출(<code>fdr.DataReader()</code>)할 경우 30분~40분에 육박하는 상당한 소요 시간이 발생했습니다.\n*   <strong>해결1 (현재 적용)</strong>: 시가총액 필터(<code>MARCAP_MIN</code>)를 500억 -&gt; 1,000억 기준으로 상향 조정하여 불필요한 동전주, 잡주를 배제. 이로써 대상 종목 수를 절반 이하로 줄이고 처리 시간을 최적화 (코스피 약 690개 / 코스닥 약 860개 가량).\n*   <strong>해결2 (추후 개선점)</strong>: <code>yfinance</code> 패키지의 티커 배열 기반 티커 묶음 조회(Batch 다운로드)를 사용할 경우 시간을 수십 배 단축(약 5분 내외)할 수 있음을 확인.</p>\n<h2 id=\"3-lesson-learned\">3. Lesson Learned</h2>\n<ul>\n<li><strong>증권 데이터 스크레이핑의 불안정성</strong>: 웹 크롤링이나 비공식 API는 언제든 막힐 위험을 내포하고 있으며, 안정적인 일 단위 파이프라인 구축 시에는 공식 OpenAPI(한국투자, 키움) 사용 혹은 <code>FinanceDataReader</code>와 같은 우회적 정제 라이브러리에 의존하는 방향이 바람직함을 절감함.</li>\n<li><strong>Google Apps Script 대안</strong>: python+gspread 조합은 강력하나, 간단한 작업일 경우 추후 Apps Script를 통한 웹훅 구현도 함께 시도할 만함.</li>\n</ul>",
+          "summary": "<p><strong>조용한 세력 매집(Quiet Accumulation)</strong> 패턴과 <strong>RSI 과매도 반등(Oversold Rebound)</strong> 패턴을 탐지하여, 그 결과를 구글 스프레드시트에 자동으로 기록하는 다중 주식 스크리너입니다. (Project: <code>05_stock_screener</code>)</p>\n<ul>\n<li><strong>Target</strong>: 한국 증시 (KOSPI &amp; KOSDAQ), 시가총액 1,000억 이상 종목</li>\n<li><strong>Notification</strong>: Google Sheets 자동 업데이트 (<code>Stock_Screener</code> 문서)</li>\n<li><strong>Schedule</strong>: 사용자 수동 크론식, 혹은 배치 처리(현재 스크립트 실행 시 전종목 순회)</li>\n</ul>",
+          "filename": "2026-02-21_stock_screener.md",
+          "slug": "2026-02-21_stock_screener",
+          "reading_time": 4,
+          "word_count": 519,
+          "category": "projects"
+        },
+        {
           "title": "ResearchLog 구축기 및 업데이트 진행 타임라인",
           "date": "2026-02-20",
           "formatted_date": "Feb 20, 2026",
@@ -105,17 +124,21 @@
     "Automation",
     "Circuit Design",
     "Crawling",
+    "FinanceDataReader",
     "Flask",
+    "Google Sheets API",
     "Markdown",
     "Overview",
+    "Pandas",
     "Python",
     "Semiconductor",
     "Study",
     "Telegram",
     "Update",
-    "Web"
+    "Web",
+    "스크리너"
   ],
-  "total_entries": 3,
-  "total_reading_time": 11,
-  "total_word_count": 1228
+  "total_entries": 4,
+  "total_reading_time": 15,
+  "total_word_count": 1747
 }
