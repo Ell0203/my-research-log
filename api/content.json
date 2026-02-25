@@ -7,6 +7,63 @@
       "desc": "Ongoing development and shipped experiments.",
       "items": [
         {
+          "title": "📈 실전 퀀트 트레이딩 스윙 대시보드 (VCP/MACD)",
+          "date": "2026-02-25",
+          "formatted_date": "Feb 25, 2026",
+          "tags": [
+            "Pykrx",
+            "yfinance",
+            "TradingView",
+            "Flask",
+            "Quant",
+            "Korean Stocks"
+          ],
+          "content": "<p>단기~중기 퀀트 투자 전술(스윙 트레이딩)을 누구나 쉽게 구사할 수 있게 해주는 개인용 대시보드 애플리케이션입니다. <strong>Quant Dashboard</strong>(<code>10_quant_dashboard</code>)는 방대한 주가 데이터와 수급 주체를 분석해 차트 밑에 찰떡같은 \"기술적/펀더멘탈 분석 의견\"을 달아줍니다.</p>\n<!-- more -->\n\n<h2 id=\"1-analyzerpy\">📊 1. 퀀트 분석 모음집 (<code>analyzer.py</code>)</h2>\n<p>이 프로젝트의 핵심은 <strong>단순한 선 긋기에서 벗어나 거래대금 폭발/고갈과 시장 강도를 다차원적 지표로 복합 판별</strong>하는 강력한 파이썬 스코어링 모듈입니다.\n*   <strong>🔥 VCP 스윙 / MACD 스윙</strong>: 에너지가 응축되어 변동성이 축소되다 거래대금이 폭발하며 21일 생명선을 돌파하는 정석 타점과, 보조 지표 추세를 통한 MACD 턴어라운드 반전 타점을 정확히 찾아냅니다. (보라색, 파란색 시그널)\n*   <strong>🚨 ATR Matrix 기반 극단 판별</strong>: 고무줄처럼 주가의 변동성(ATR)을 측정, 50일 파란선을 기준으로 주가가 얼마나 이탈했는지 감시하여 <code>7 ATR 오버슈팅(과열 매수 금지)</code> 혹은 <code>-7 ATR 지하 암반수(투매 극단 저점)</code> 위치를 탐지해 냅니다.\n*   <strong>📐 피보나치 되돌림 분석기</strong>: 장기 고점과 저점(150일)을 바탕으로 건강하게 숨을 고를 정석 1차 매수 타점(38.2%)부터 극단의 마지노선(61.8%)까지 스마트하게 선을 그어줍니다.</p>\n<h2 id=\"2-kis_apipy\">👥 2. 입체적 수급 파악 및 공매도 탐지 (<code>kis_api.py</code>)</h2>\n<p>한국투자증권(KIS) 실시간 정식 API를 전면에 배치하여 기관, 외인, 사모펀드 등의 세세한 돈의 흐름을 엑스레이처럼 투시합니다.\n*   <strong>쌍끌이 엔진</strong>: 어제와 오늘 외국인/기관계/세부 기관(투신, 연기금 등)이 양쪽에서 강하게 매수해 주면 추가 점수를 대폭 가산하고, \"🌍🏦 쌍끌이 매수! 가장 강력한 수급 신호\" 라는 시그널을 출력합니다.\n*   <strong>진성 거래대금 파악</strong>: yfinance의 추정치 대신 실제 실전 시장에서 호가를 오간 진짜 체결 단위별 일간 거래대금을 호출해와 평균 20일 거래대금과 비교합니다.\n*   <strong>공매도 잔고 어택 모니터링</strong>: 숏 세력의 집중 어택을 받는 종목인지 공매도량 비중을 탐지하여 브레이크를 걸어줍니다(비중 5% 초과 시 강력 경고).</p>\n<h2 id=\"3-tradingview-ui-indexhtml\">🖥 3. TradingView 차트 + 글래스모피즘 UI (<code>index.html</code>)</h2>\n<p>블랙과 네온 컬러의 아름다운 <code>Lightweight Charts</code>를 활용한 풀스택 모던 프론트엔드가 차트와 표면 지표를 동시에 띄워주는 미려한 우주선을 연상시킵니다. 우측의 '알고리즘 분석의견' 창이 주식을 매수해도 좋을지 100점 만점으로 점수를 매겨 실시간 피드백을 주며 하단에는 펼침/접기가 가능한 <strong>지표 가이드북</strong>이 동적으로 연동되어 있습니다.</p>\n<p><strong>💡 배포 (<code>Render</code> 기반)</strong>\n별도의 인프라 구축 없이 Github Repository 푸시만으로 <code>Procfile</code>을 통해 포트 10000(또는 5000)번에 Gunicorn 프로덕션 서버로 바로 서빙될 수 있도록 클라우드 환경 설정(<code>render.yaml</code>)까지 마스터 피스로 구성되었습니다.</p>",
+          "summary": "<p>단기~중기 퀀트 투자 전술(스윙 트레이딩)을 누구나 쉽게 구사할 수 있게 해주는 개인용 대시보드 애플리케이션입니다. <strong>Quant Dashboard</strong>(<code>10_quant_dashboard</code>)는 방대한 주가 데이터와 수급 주체를 분석해 차트 밑에 찰떡같은 \"기술적/펀더멘탈 분석 의견\"을 달아줍니다.</p>",
+          "filename": "2026-02-25_quant_dashboard.md",
+          "slug": "2026-02-25_quant_dashboard",
+          "reading_time": 2,
+          "word_count": 316,
+          "category": "projects"
+        },
+        {
+          "title": "🤖 Markdown PDF 생성기 및 이력서 빌더 웹 애플리케이션",
+          "date": "2026-02-24",
+          "formatted_date": "Feb 24, 2026",
+          "tags": [
+            "PDF",
+            "WeasyPrint",
+            "Flask",
+            "Markdown",
+            "Resume"
+          ],
+          "content": "<p>단순한 텍스트 파일(Markdown)을 아름답고 전문적인 PDF 문서로 출력하는 두 개의 유틸리티 웹 애플리케이션 파이프라인을 구축했습니다. <strong>MD2PDF</strong>(<code>08_md2pdf</code>)는 범용 문서 생성에, <strong>MD_Resume</strong>(<code>09_md_resume</code>)는 고품질 이력서 발간에 특화되어 있습니다.</p>\n<!-- more -->\n\n<h2 id=\"1-md2pdf-08_md2pdf\">📄 1. MD2PDF (08_md2pdf) 변환기</h2>\n<p>마크다운 문법으로 작성된 기술 문서나 기획안을 스타일이 입혀진 깔끔한 배포용 PDF 파일로 변환합니다.\n*   <strong>변환 프로세스</strong>: <code>Flask</code> 백엔드가 사용자의 마크다운 입력을 받아 <code>markdown</code> 모듈로 먼저 HTML로 렌더링하고, 이후 CSS 스타일 시트(Github 테마 등)를 입혀 <code>WeasyPrint</code> 엔진에 넘겨 PDF를 생성합니다.\n*   <strong>한글 폰트 지원(Pre-embedded)</strong>: 개발 초기 한글이 깨지는 현상이 있었으나, <code>fonts/</code> 디렉토리에 한국어 폰트(ex: Noto Sans KR 등)를 직접 임베딩하고 CSS의 <code>@font-face</code>를 지정하여 매끄럽게 문제를 해결했습니다. \n*   <strong>코드 블록 하이라이팅</strong>: <code>Pygments</code> 기반의 확장 기능을 활용하여 개발자들이 많이 사용하는 파이썬, 자바스크립트 등 다양한 소스 코드 블록의 시각적 형태를 그대로 유지한 채 출력해 냅니다.</p>\n<h2 id=\"2-markdown-resume-builder-09_md_resume\">💼 2. Markdown Resume Builder (09_md_resume)</h2>\n<p>위 엔진을 뼈대로 삼아 기능 특화시킨 '이력서/포트폴리오 생성기'입니다. 단순한 텍스트를 글로벌 IT 기업 스타일의 세련된 영문/국문 레주메 템플릿으로 탈바꿈시킵니다.\n*   <strong>다양한 디자인 테마 제공</strong>: <code>static/css/</code> 안에 <code>theme_modern.css</code>, <code>theme_classic.css</code> 등 여러 개의 테마 CSS를 준비해두었습니다. 드롭다운에서 테마를 클릭하면, 마크다운 이력서가 전혀 다른 분위기(예: 깔끔한 모던 스타일 vs 중후한 클래식 스타일)로 즉각 변신하여 PDF로 나옵니다.\n*   <strong>이력서에 최적화된 마크다운 확장</strong>: 경력(Work Experience)이나 프로젝트 타임라인 등을 수려하게 그리기 위해 특수한 마크다운 양식과 전용 CSS 클래스 맵핑을 구현하여 이력서 공간(여백, 페이지 분할 등)을 효율적으로 조율합니다.\n*   <strong>실시간 미리보기 (<code>app.py</code> 인터페이스)</strong>: 작성한 마크다운을 브라우저의 양분된 화면 한쪽에 넣으면, 반대쪽에 HTML 수준에서 어떻게 렌더링 될지 실시간으로 보여주며(<code>example_resume.md</code> 기반), 완성 후 버튼 한 번이면 PDF가 즉시 다운로드 됩니다.</p>\n<p><strong>💡 기술적 포인트</strong>\n두 애플리케이션 모두 복잡한 Word나 PPT 편집 없이 온전히 타이핑(코딩)의 효율만으로 정형화되고 일관된 산출물을 무한하게 만들어 낼 수 있는, 개발자 친화형 퍼블리싱 스위트(Publishing Suite)로 기능합니다.</p>",
+          "summary": "<p>단순한 텍스트 파일(Markdown)을 아름답고 전문적인 PDF 문서로 출력하는 두 개의 유틸리티 웹 애플리케이션 파이프라인을 구축했습니다. <strong>MD2PDF</strong>(<code>08_md2pdf</code>)는 범용 문서 생성에, <strong>MD_Resume</strong>(<code>09_md_resume</code>)는 고품질 이력서 발간에 특화되어 있습니다.</p>",
+          "filename": "2026-02-24_markdown_pdf_resume.md",
+          "slug": "2026-02-24_markdown_pdf_resume",
+          "reading_time": 2,
+          "word_count": 271,
+          "category": "projects"
+        },
+        {
+          "title": "🤖 지식 그래프 및 영감 저장소 아카이빙 구축",
+          "date": "2026-02-23",
+          "formatted_date": "Feb 23, 2026",
+          "tags": [
+            "Knowledge Graph",
+            "Inspiration",
+            "Web",
+            "Organization"
+          ],
+          "content": "<p>파편화되어 방치되기 쉬운 지식과 영감들을 체계적으로 분류하고 연결하기 위해 <strong>Knowledge Graph</strong>(<code>04_knowledge_graph</code>, 옵시디언 기반 모델)와 <strong>Inspiration</strong>(<code>07_inspiration</code>, 인터랙티브 웹 갤러리) 저장소를 새롭게 디자인 및 구축하였습니다. 단편적인 아이디어들이 서로 얽혀 거대한 인사이트 네트워크를 형성하도록 돕는 인프라 프로젝트입니다.</p>\n<!-- more -->\n\n<h2 id=\"1-knowledge-graph-04_knowledge_graph\">🌌 1. Knowledge Graph (04_knowledge_graph)</h2>\n<p>정보의 '관계(Relation)'에 집중하여, 단순한 폴더형 분류를 넘어 아이디어 간의 유기적 연결망을 시각화하고 관리합니다.</p>\n<ul>\n<li><strong>구조적 특징 (<code>vault/</code>)</strong>:<ul>\n<li><code>1_Conception</code>: 초기 단계의 날것의 아이디어, 영감, 스케치 등을 모아두는 인큐베이터입니다.</li>\n<li><code>2_Planning</code>: 구체화된 기획, 아키텍처 다이어그램, 로드맵 문서가 위치합니다.</li>\n<li><code>3_Execution</code>: 실제 구현 과정, 트러블슈팅, 개발 로그가 저장됩니다.</li>\n<li><code>4_Results</code>: 완료된 프로젝트의 리뷰, 배포 링크, 회고록이 담깁니다.</li>\n</ul>\n</li>\n<li><strong>시각화 엔진</strong>: Flask 백엔드(<code>app.py</code>)가 <code>vault/</code> 내의 마크다운 파일들을 순회하며 링크(<code>[[쌍발 링크]]</code>)를 파싱하여, D3.js 기반의 동력학적(Force-directed) 그래프 스크립트로 웹 브라우저 상에 지식의 우주를 그물망처럼 띄워줍니다.</li>\n</ul>\n<h2 id=\"2-inspiration-07_inspiration\">🎨 2. Inspiration (07_inspiration)</h2>\n<p>흩어진 웹 디자인 패턴, 좋은 코드 스니펫, 번뜩이는 UI/UX 아이디어들을 즉각적으로 기록하고 나중에 꺼내보기 좋게 갤러리 형태로 전시하는 정적 웹페이지 공간입니다.</p>\n<ul>\n<li><strong>웹 갤러리 (<code>index.html</code>)</strong>:<ul>\n<li>단일 파일 구조의 가벼운 웹페이지로, 화려한 카드형 UI를 채택하여 시각적 만족도를 높였습니다.</li>\n<li>개별 영감 항목은 해시태그로 분류되어 있어 필터링이 용이하며, 코드 스니펫이나 디자인 시안 이미지를 아름답게 표현할 수 있는 커스텀 CSS(Glassmorphism 등)가 적용되었습니다.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"_1\">💡 의의</h2>\n<p>단순한 코드 개발을 넘어, <strong>개발 과정에서 얻는 메타(Meta) 지식과 외부 영감을 자산화</strong>하는 강력한 파이프라인을 마련했습니다. 이제 머릿속을 스쳐가는 작은 아이디어도 그래프의 한 노드가 되어 미래의 거대한 프로젝트를 위한 훌륭한 자양분이 될 것입니다.</p>",
+          "summary": "<p>파편화되어 방치되기 쉬운 지식과 영감들을 체계적으로 분류하고 연결하기 위해 <strong>Knowledge Graph</strong>(<code>04_knowledge_graph</code>, 옵시디언 기반 모델)와 <strong>Inspiration</strong>(<code>07_inspiration</code>, 인터랙티브 웹 갤러리) 저장소를 새롭게 디자인 및 구축하였습니다. 단편적인 아이디어들이 서로 얽혀 거대한 인사이트 네트워크를 형성하도록 돕는 인프라 프로젝트입니다.</p>",
+          "filename": "2026-02-23_knowledge_and_inspiration.md",
+          "slug": "2026-02-23_knowledge_and_inspiration",
+          "reading_time": 2,
+          "word_count": 223,
+          "category": "projects"
+        },
+        {
           "title": "💬 카카오톡 대화 분석기 (보안 & 로컬 중심) 구현",
           "date": "2026-02-22",
           "formatted_date": "Feb 22, 2026",
@@ -161,6 +218,26 @@
           "reading_time": 2,
           "word_count": 178,
           "category": "ideas"
+        },
+        {
+          "title": "독립 프로젝트 아이디어 모음 (기존 프로젝트 비연계)",
+          "date": "2026-02-22",
+          "formatted_date": "Feb 22, 2026",
+          "tags": [
+            "Idea",
+            "Python",
+            "Flask",
+            "AI",
+            "Gemini",
+            "유틸리티"
+          ],
+          "content": "<p>기존 프로젝트와 연계하지 않는, 독립적으로 재미있고 실용적인 프로젝트 아이디어 정리.</p>\n<!-- more -->\n\n<h2 id=\"_1\">🎮 재미 / 개인 프로젝트</h2>\n<h3 id=\"1\">1. 타이핑 속도 테스트</h3>\n<ul>\n<li>랜덤 한글/영문 문장 → WPM 측정, 정확도 분석, 히스토리 그래프</li>\n<li>Flask + vanilla JS로 충분</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"2\">2. 습관 트래커</h3>\n<ul>\n<li>매일 체크하는 습관 기록</li>\n<li>연속 달성 streak, 히트맵(GitHub 잔디 스타일) 시각화</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"3\">3. 밈 제너레이터</h3>\n<ul>\n<li>이미지 업로드 → 텍스트 오버레이</li>\n<li>Pillow로 서버사이드 합성, 갤러리 저장</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"4\">4. 랜덤 메뉴 추천기</h3>\n<ul>\n<li>\"오늘 뭐 먹지?\" → 위치/날씨/시간대 기반 메뉴 추천</li>\n<li>Gemini로 이유까지 설명</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<hr />\n<h2 id=\"_2\">🛠 실용 / 유틸리티</h2>\n<h3 id=\"5\">5. 파일 정리 자동화</h3>\n<ul>\n<li>지정 폴더(다운로드 등) 감시 → 확장자/날짜별 자동 분류</li>\n<li><code>watchdog</code> 라이브러리 활용</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"6-qr\">6. QR 코드 생성기</h3>\n<ul>\n<li>URL/텍스트/WiFi 정보 입력 → QR 이미지 생성</li>\n<li>커스텀 색상/로고 삽입 가능한 웹 UI</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"7-pdf\">7. 마크다운 → PDF 변환기</h3>\n<ul>\n<li><code>.md</code> 파일 업로드 → 깔끔한 PDF 출력</li>\n<li><code>weasyprint</code> 또는 <code>pdfkit</code> 활용</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"8\">8. 클립보드 히스토리</h3>\n<ul>\n<li>복사한 텍스트를 자동 저장, 검색 가능한 히스토리</li>\n<li>시스템 트레이 상주 앱 (<code>pystray</code>)</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<hr />\n<h2 id=\"ai-api\">🤖 AI / API 활용</h2>\n<h3 id=\"9-ai\">9. AI 면접관</h3>\n<ul>\n<li>직무/기술 입력 → Gemini가 면접 질문 생성</li>\n<li>답변 입력 → 실시간 피드백</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"10\">10. 영어 문장 교정기</h3>\n<ul>\n<li>영작 입력 → Gemini가 문법 교정 + 자연스러운 표현 제안 + 난이도 표시</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"11\">11. 유튜브 요약기</h3>\n<ul>\n<li>YouTube URL 입력 → 자막 추출(<code>youtube-transcript-api</code>) → Gemini 요약</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"12-ai\">12. AI 플래시카드</h3>\n<ul>\n<li>주제 입력 → Gemini가 Q&amp;A 카드 자동 생성</li>\n<li>간격 반복(Spaced Repetition) 학습 시스템</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<hr />\n<h2 id=\"_3\">🌐 웹 / 데이터</h2>\n<h3 id=\"13-url\">13. 단축 URL 서비스</h3>\n<ul>\n<li>긴 URL → 짧은 코드 생성</li>\n<li>클릭 수/유입 경로 추적 대시보드</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"14\">14. 날씨 대시보드</h3>\n<ul>\n<li>OpenWeather API → 현재 날씨 + 주간 예보 + 미세먼지</li>\n<li>위젯 스타일 UI</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"15\">15. 가격 변동 알리미</h3>\n<ul>\n<li>특정 상품 페이지 주기적 크롤링 → 가격 변동 시 알림</li>\n<li>가격 히스토리 차트</li>\n<li>난이도: ★★★★☆</li>\n</ul>\n<hr />\n<h2 id=\"top-3\">개인 추천 TOP 3</h2>\n<table>\n<thead>\n<tr>\n<th>순위</th>\n<th>프로젝트</th>\n<th>이유</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>유튜브 요약기</td>\n<td>매일 실사용 가능, Gemini API 경험 활용</td>\n</tr>\n<tr>\n<td>2</td>\n<td>습관 트래커</td>\n<td>웹 UI 연습에 좋고, 시각적 만족도 높음</td>\n</tr>\n<tr>\n<td>3</td>\n<td>AI 면접관</td>\n<td>실질적 도움, 대화형 UI 구현 경험</td>\n</tr>\n</tbody>\n</table>",
+          "summary": "<p>기존 프로젝트와 연계하지 않는, 독립적으로 재미있고 실용적인 프로젝트 아이디어 정리.</p>",
+          "filename": "2026-02-22_standalone_project_ideas.md",
+          "slug": "2026-02-22_standalone_project_ideas",
+          "reading_time": 2,
+          "word_count": 413,
+          "category": "ideas"
         }
       ]
     },
@@ -191,24 +268,35 @@
     "Gemini",
     "Google Sheets API",
     "Idea",
+    "Inspiration",
+    "Knowledge Graph",
+    "Korean Stocks",
     "LLM",
     "Markdown",
+    "Organization",
     "Overview",
+    "PDF",
     "Pandas",
     "Privacy",
+    "Pykrx",
     "Python",
+    "Quant",
     "RAG",
+    "Resume",
     "Semiconductor",
     "Study",
     "Telegram",
+    "TradingView",
     "Update",
+    "WeasyPrint",
     "Web",
     "pykrx",
     "yfinance",
     "스크리너",
+    "유틸리티",
     "퀀트"
   ],
-  "total_entries": 7,
-  "total_reading_time": 25,
-  "total_word_count": 2845
+  "total_entries": 11,
+  "total_reading_time": 33,
+  "total_word_count": 4068
 }
