@@ -1,0 +1,302 @@
+{
+  "sections": [
+    {
+      "id": "projects",
+      "title": "Projects",
+      "color": "#cba6f7",
+      "desc": "Ongoing development and shipped experiments.",
+      "items": [
+        {
+          "title": "📈 실전 퀀트 트레이딩 스윙 대시보드 (VCP/MACD)",
+          "date": "2026-02-25",
+          "formatted_date": "Feb 25, 2026",
+          "tags": [
+            "Pykrx",
+            "yfinance",
+            "TradingView",
+            "Flask",
+            "Quant",
+            "Korean Stocks"
+          ],
+          "content": "<p>단기~중기 퀀트 투자 전술(스윙 트레이딩)을 누구나 쉽게 구사할 수 있게 해주는 개인용 대시보드 애플리케이션입니다. <strong>Quant Dashboard</strong>(<code>10_quant_dashboard</code>)는 방대한 주가 데이터와 수급 주체를 분석해 차트 밑에 찰떡같은 \"기술적/펀더멘탈 분석 의견\"을 달아줍니다.</p>\n<!-- more -->\n\n<h2 id=\"1-analyzerpy\">📊 1. 퀀트 분석 모음집 (<code>analyzer.py</code>)</h2>\n<p>이 프로젝트의 핵심은 <strong>단순한 선 긋기에서 벗어나 거래대금 폭발/고갈과 시장 강도를 다차원적 지표로 복합 판별</strong>하는 강력한 파이썬 스코어링 모듈입니다.\n*   <strong>🔥 VCP 스윙 / MACD 스윙</strong>: 에너지가 응축되어 변동성이 축소되다 거래대금이 폭발하며 21일 생명선을 돌파하는 정석 타점과, 보조 지표 추세를 통한 MACD 턴어라운드 반전 타점을 정확히 찾아냅니다. (보라색, 파란색 시그널)\n*   <strong>🚨 ATR Matrix 기반 극단 판별</strong>: 고무줄처럼 주가의 변동성(ATR)을 측정, 50일 파란선을 기준으로 주가가 얼마나 이탈했는지 감시하여 <code>7 ATR 오버슈팅(과열 매수 금지)</code> 혹은 <code>-7 ATR 지하 암반수(투매 극단 저점)</code> 위치를 탐지해 냅니다.\n*   <strong>📐 피보나치 되돌림 분석기</strong>: 장기 고점과 저점(150일)을 바탕으로 건강하게 숨을 고를 정석 1차 매수 타점(38.2%)부터 극단의 마지노선(61.8%)까지 스마트하게 선을 그어줍니다.</p>\n<h2 id=\"2-kis_apipy\">👥 2. 입체적 수급 파악 및 공매도 탐지 (<code>kis_api.py</code>)</h2>\n<p>한국투자증권(KIS) 실시간 정식 API를 전면에 배치하여 기관, 외인, 사모펀드 등의 세세한 돈의 흐름을 엑스레이처럼 투시합니다.\n*   <strong>쌍끌이 엔진</strong>: 어제와 오늘 외국인/기관계/세부 기관(투신, 연기금 등)이 양쪽에서 강하게 매수해 주면 추가 점수를 대폭 가산하고, \"🌍🏦 쌍끌이 매수! 가장 강력한 수급 신호\" 라는 시그널을 출력합니다.\n*   <strong>진성 거래대금 파악</strong>: yfinance의 추정치 대신 실제 실전 시장에서 호가를 오간 진짜 체결 단위별 일간 거래대금을 호출해와 평균 20일 거래대금과 비교합니다.\n*   <strong>공매도 잔고 어택 모니터링</strong>: 숏 세력의 집중 어택을 받는 종목인지 공매도량 비중을 탐지하여 브레이크를 걸어줍니다(비중 5% 초과 시 강력 경고).</p>\n<h2 id=\"3-tradingview-ui-indexhtml\">🖥 3. TradingView 차트 + 글래스모피즘 UI (<code>index.html</code>)</h2>\n<p>블랙과 네온 컬러의 아름다운 <code>Lightweight Charts</code>를 활용한 풀스택 모던 프론트엔드가 차트와 표면 지표를 동시에 띄워주는 미려한 우주선을 연상시킵니다. 우측의 '알고리즘 분석의견' 창이 주식을 매수해도 좋을지 100점 만점으로 점수를 매겨 실시간 피드백을 주며 하단에는 펼침/접기가 가능한 <strong>지표 가이드북</strong>이 동적으로 연동되어 있습니다.</p>\n<p><strong>💡 배포 (<code>Render</code> 기반)</strong>\n별도의 인프라 구축 없이 Github Repository 푸시만으로 <code>Procfile</code>을 통해 포트 10000(또는 5000)번에 Gunicorn 프로덕션 서버로 바로 서빙될 수 있도록 클라우드 환경 설정(<code>render.yaml</code>)까지 마스터 피스로 구성되었습니다.</p>",
+          "summary": "<p>단기~중기 퀀트 투자 전술(스윙 트레이딩)을 누구나 쉽게 구사할 수 있게 해주는 개인용 대시보드 애플리케이션입니다. <strong>Quant Dashboard</strong>(<code>10_quant_dashboard</code>)는 방대한 주가 데이터와 수급 주체를 분석해 차트 밑에 찰떡같은 \"기술적/펀더멘탈 분석 의견\"을 달아줍니다.</p>",
+          "filename": "2026-02-25_quant_dashboard.md",
+          "slug": "2026-02-25_quant_dashboard",
+          "reading_time": 2,
+          "word_count": 316,
+          "category": "projects"
+        },
+        {
+          "title": "🤖 Markdown PDF 생성기 및 이력서 빌더 웹 애플리케이션",
+          "date": "2026-02-24",
+          "formatted_date": "Feb 24, 2026",
+          "tags": [
+            "PDF",
+            "WeasyPrint",
+            "Flask",
+            "Markdown",
+            "Resume"
+          ],
+          "content": "<p>단순한 텍스트 파일(Markdown)을 아름답고 전문적인 PDF 문서로 출력하는 두 개의 유틸리티 웹 애플리케이션 파이프라인을 구축했습니다. <strong>MD2PDF</strong>(<code>08_md2pdf</code>)는 범용 문서 생성에, <strong>MD_Resume</strong>(<code>09_md_resume</code>)는 고품질 이력서 발간에 특화되어 있습니다.</p>\n<!-- more -->\n\n<h2 id=\"1-md2pdf-08_md2pdf\">📄 1. MD2PDF (08_md2pdf) 변환기</h2>\n<p>마크다운 문법으로 작성된 기술 문서나 기획안을 스타일이 입혀진 깔끔한 배포용 PDF 파일로 변환합니다.\n*   <strong>변환 프로세스</strong>: <code>Flask</code> 백엔드가 사용자의 마크다운 입력을 받아 <code>markdown</code> 모듈로 먼저 HTML로 렌더링하고, 이후 CSS 스타일 시트(Github 테마 등)를 입혀 <code>WeasyPrint</code> 엔진에 넘겨 PDF를 생성합니다.\n*   <strong>한글 폰트 지원(Pre-embedded)</strong>: 개발 초기 한글이 깨지는 현상이 있었으나, <code>fonts/</code> 디렉토리에 한국어 폰트(ex: Noto Sans KR 등)를 직접 임베딩하고 CSS의 <code>@font-face</code>를 지정하여 매끄럽게 문제를 해결했습니다. \n*   <strong>코드 블록 하이라이팅</strong>: <code>Pygments</code> 기반의 확장 기능을 활용하여 개발자들이 많이 사용하는 파이썬, 자바스크립트 등 다양한 소스 코드 블록의 시각적 형태를 그대로 유지한 채 출력해 냅니다.</p>\n<h2 id=\"2-markdown-resume-builder-09_md_resume\">💼 2. Markdown Resume Builder (09_md_resume)</h2>\n<p>위 엔진을 뼈대로 삼아 기능 특화시킨 '이력서/포트폴리오 생성기'입니다. 단순한 텍스트를 글로벌 IT 기업 스타일의 세련된 영문/국문 레주메 템플릿으로 탈바꿈시킵니다.\n*   <strong>다양한 디자인 테마 제공</strong>: <code>static/css/</code> 안에 <code>theme_modern.css</code>, <code>theme_classic.css</code> 등 여러 개의 테마 CSS를 준비해두었습니다. 드롭다운에서 테마를 클릭하면, 마크다운 이력서가 전혀 다른 분위기(예: 깔끔한 모던 스타일 vs 중후한 클래식 스타일)로 즉각 변신하여 PDF로 나옵니다.\n*   <strong>이력서에 최적화된 마크다운 확장</strong>: 경력(Work Experience)이나 프로젝트 타임라인 등을 수려하게 그리기 위해 특수한 마크다운 양식과 전용 CSS 클래스 맵핑을 구현하여 이력서 공간(여백, 페이지 분할 등)을 효율적으로 조율합니다.\n*   <strong>실시간 미리보기 (<code>app.py</code> 인터페이스)</strong>: 작성한 마크다운을 브라우저의 양분된 화면 한쪽에 넣으면, 반대쪽에 HTML 수준에서 어떻게 렌더링 될지 실시간으로 보여주며(<code>example_resume.md</code> 기반), 완성 후 버튼 한 번이면 PDF가 즉시 다운로드 됩니다.</p>\n<p><strong>💡 기술적 포인트</strong>\n두 애플리케이션 모두 복잡한 Word나 PPT 편집 없이 온전히 타이핑(코딩)의 효율만으로 정형화되고 일관된 산출물을 무한하게 만들어 낼 수 있는, 개발자 친화형 퍼블리싱 스위트(Publishing Suite)로 기능합니다.</p>",
+          "summary": "<p>단순한 텍스트 파일(Markdown)을 아름답고 전문적인 PDF 문서로 출력하는 두 개의 유틸리티 웹 애플리케이션 파이프라인을 구축했습니다. <strong>MD2PDF</strong>(<code>08_md2pdf</code>)는 범용 문서 생성에, <strong>MD_Resume</strong>(<code>09_md_resume</code>)는 고품질 이력서 발간에 특화되어 있습니다.</p>",
+          "filename": "2026-02-24_markdown_pdf_resume.md",
+          "slug": "2026-02-24_markdown_pdf_resume",
+          "reading_time": 2,
+          "word_count": 271,
+          "category": "projects"
+        },
+        {
+          "title": "🤖 지식 그래프 및 영감 저장소 아카이빙 구축",
+          "date": "2026-02-23",
+          "formatted_date": "Feb 23, 2026",
+          "tags": [
+            "Knowledge Graph",
+            "Inspiration",
+            "Web",
+            "Organization"
+          ],
+          "content": "<p>파편화되어 방치되기 쉬운 지식과 영감들을 체계적으로 분류하고 연결하기 위해 <strong>Knowledge Graph</strong>(<code>04_knowledge_graph</code>, 옵시디언 기반 모델)와 <strong>Inspiration</strong>(<code>07_inspiration</code>, 인터랙티브 웹 갤러리) 저장소를 새롭게 디자인 및 구축하였습니다. 단편적인 아이디어들이 서로 얽혀 거대한 인사이트 네트워크를 형성하도록 돕는 인프라 프로젝트입니다.</p>\n<!-- more -->\n\n<h2 id=\"1-knowledge-graph-04_knowledge_graph\">🌌 1. Knowledge Graph (04_knowledge_graph)</h2>\n<p>정보의 '관계(Relation)'에 집중하여, 단순한 폴더형 분류를 넘어 아이디어 간의 유기적 연결망을 시각화하고 관리합니다.</p>\n<ul>\n<li><strong>구조적 특징 (<code>vault/</code>)</strong>:<ul>\n<li><code>1_Conception</code>: 초기 단계의 날것의 아이디어, 영감, 스케치 등을 모아두는 인큐베이터입니다.</li>\n<li><code>2_Planning</code>: 구체화된 기획, 아키텍처 다이어그램, 로드맵 문서가 위치합니다.</li>\n<li><code>3_Execution</code>: 실제 구현 과정, 트러블슈팅, 개발 로그가 저장됩니다.</li>\n<li><code>4_Results</code>: 완료된 프로젝트의 리뷰, 배포 링크, 회고록이 담깁니다.</li>\n</ul>\n</li>\n<li><strong>시각화 엔진</strong>: Flask 백엔드(<code>app.py</code>)가 <code>vault/</code> 내의 마크다운 파일들을 순회하며 링크(<code>[[쌍발 링크]]</code>)를 파싱하여, D3.js 기반의 동력학적(Force-directed) 그래프 스크립트로 웹 브라우저 상에 지식의 우주를 그물망처럼 띄워줍니다.</li>\n</ul>\n<h2 id=\"2-inspiration-07_inspiration\">🎨 2. Inspiration (07_inspiration)</h2>\n<p>흩어진 웹 디자인 패턴, 좋은 코드 스니펫, 번뜩이는 UI/UX 아이디어들을 즉각적으로 기록하고 나중에 꺼내보기 좋게 갤러리 형태로 전시하는 정적 웹페이지 공간입니다.</p>\n<ul>\n<li><strong>웹 갤러리 (<code>index.html</code>)</strong>:<ul>\n<li>단일 파일 구조의 가벼운 웹페이지로, 화려한 카드형 UI를 채택하여 시각적 만족도를 높였습니다.</li>\n<li>개별 영감 항목은 해시태그로 분류되어 있어 필터링이 용이하며, 코드 스니펫이나 디자인 시안 이미지를 아름답게 표현할 수 있는 커스텀 CSS(Glassmorphism 등)가 적용되었습니다.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"_1\">💡 의의</h2>\n<p>단순한 코드 개발을 넘어, <strong>개발 과정에서 얻는 메타(Meta) 지식과 외부 영감을 자산화</strong>하는 강력한 파이프라인을 마련했습니다. 이제 머릿속을 스쳐가는 작은 아이디어도 그래프의 한 노드가 되어 미래의 거대한 프로젝트를 위한 훌륭한 자양분이 될 것입니다.</p>",
+          "summary": "<p>파편화되어 방치되기 쉬운 지식과 영감들을 체계적으로 분류하고 연결하기 위해 <strong>Knowledge Graph</strong>(<code>04_knowledge_graph</code>, 옵시디언 기반 모델)와 <strong>Inspiration</strong>(<code>07_inspiration</code>, 인터랙티브 웹 갤러리) 저장소를 새롭게 디자인 및 구축하였습니다. 단편적인 아이디어들이 서로 얽혀 거대한 인사이트 네트워크를 형성하도록 돕는 인프라 프로젝트입니다.</p>",
+          "filename": "2026-02-23_knowledge_and_inspiration.md",
+          "slug": "2026-02-23_knowledge_and_inspiration",
+          "reading_time": 2,
+          "word_count": 223,
+          "category": "projects"
+        },
+        {
+          "title": "💬 카카오톡 대화 분석기 (보안 & 로컬 중심) 구현",
+          "date": "2026-02-22",
+          "formatted_date": "Feb 22, 2026",
+          "tags": [
+            "Python",
+            "Pandas",
+            "Gemini",
+            "Privacy",
+            "Data Analysis"
+          ],
+          "content": "<p>카카오톡이나 텔레그램에서 내보낸 대화 기록 파일(<code>.txt</code>)을 파싱하여 누가 이야기를 많이 했는지, 대화가 언제 활발한지, 어떤 단어를 주로 사용하는지 <code>pandas</code>를 이용해 통계를 내는 Python 도구입니다. 이와 함께 <strong>Gemini API</strong>를 활용하여 재미있는 \"분위기(Vibe) 및 관계 요약\" 리포트를 생성합니다. (Project: <code>06_chat_analyzer</code>)</p>\n<ul>\n<li>🎯 <strong>Target</strong>: 카카오톡 / 텔레그램 내보내기 파일 (<code>.txt</code>)</li>\n<li>🤖 <strong>AI Engine</strong>: Google Gemini (<code>gemini-2.5-flash</code>) - 대화 분위기 및 관계 프로파일링</li>\n<li>🔒 <strong>보안</strong>: 100% 로컬 통계 처리 + PII 완벽 마스킹 후 AI 전송</li>\n</ul>\n<!-- more -->\n\n<h2 id=\"1-projects06_chat_analyzer\">🏗️ 1. 개발된 모듈 구조 (<code>projects/06_chat_analyzer/</code>)</h2>\n<h3 id=\"requirementstxt\">📦 <code>requirements.txt</code></h3>\n<p>분석기 실행에 필요한 종속성 패키지입니다.\n- <code>pandas</code> (데이터 조작 및 통계)\n- <code>requests</code> (Gemini API 호출용, <code>02_news_bot</code>과 동일한 구도)\n- (선택 사항: 향후 고급 형태소 분석이나 차트를 위해 <code>konlpy</code> 또는 <code>matplotlib</code> 추가 가능)</p>\n<h3 id=\"parserpy\">📄 <code>parser.py</code></h3>\n<p><code>.txt</code> 형식의 내보내기 파일을 읽어 들이는 모듈입니다.\n- 카카오톡 내보내기 형식에 맞춘 커스텀 정규표현식(Regex)을 포함합니다. <em>카카오톡 PC버전 및 모바일 버전 내보내기 형식을 모두 지원합니다.</em>\n- 텍스트 줄을 파싱하고, 여러 줄로 나뉜 메시지를 하나로 묶어 구조화된 <code>pandas.DataFrame</code>(컬럼: 일자, 시간, 발신자, 메시지)으로 변환합니다.</p>\n<h3 id=\"analyzerpy\">📊 <code>analyzer.py</code></h3>\n<p>데이터프레임(DataFrame)을 기반으로 통계 지표를 계산합니다.\n- 🗣️ <strong>메시지 수:</strong> 발신자별 총 메시지 개수 파악.\n- ⏰ <strong>시간대 분석:</strong> 하루 중 가장 대화가 활발한 시간 파악.\n- 🔠 <strong>단어 빈도수:</strong> 가장 자주 등장하는 단어 추출 (조사, 이모티콘 등 일반적인 불용어 필터링).</p>\n<h3 id=\"anonymizerpy\">🔒 <code>anonymizer.py</code></h3>\n<p>가장 중요한 보안 모듈로써, 외부 API 서버에 데이터를 보내기 전 모든 개인정보를 철저하게 마스킹합니다.\n- <code>analyzer.py</code> 이후에 동작하여 데이터프레임을 클렌징합니다.\n- 👤 <strong>표시 이름 마스킹:</strong> 실제 대화명을 <code>User_A</code>, <code>User_B</code> 등으로 대체합니다.\n- 🛡️ <strong>정규식 치환(Redaction):</strong> 1) 이메일 주소(<code>[EMAIL]</code>), 2) 전화번호, 계좌번호, 카드번호(<code>[NUMBER]</code>), 3) 패턴 상 ID/패스워드로 추정되는 정보들을 정규식으로 찾아내 [마스킹 텍스트]로 치환합니다.\n- ✅ 이 과정을 통해 사용자 컴퓨터(로컬)를 떠나는 데이터에는 어떠한 개인 식별 정보(PII)도 포함되지 않습니다.</p>\n<h3 id=\"ai_summarizerpy\">🤖 <code>ai_summarizer.py</code></h3>\n<p>Gemini API와 통신하는 클래스입니다.\n- 환경 변수나 설정 파일에서 API 키를 로드하여 사용합니다.\n- 개인정보가 완벽히 제거된 대화 기록(예: 최근 300개의 메시지 등)만을 샘플링합니다.\n- 대화의 주요 주제 3가지 및 참여자 간의 관계나 분위기(Vibe), 감정 상태 등을 분석해달라는 프롬프트를 전송합니다.\n- 잘 정리된 Markdown 형식의 문자열 리포트를 반환받습니다.</p>\n<h3 id=\"mainpy\">▶️ <code>main.py</code></h3>\n<p>모든 모듈을 조율하는 메인 스크립트입니다.\n- 터미널에서 채팅 로그 파일(<code>.txt</code>) 경로를 인자로 받습니다. <code>--days</code> 옵션을 통해 분석할 기간(최근 N일)을 유연하게 조정할 수 있습니다.\n- <code>parser.py</code> -&gt; <code>analyzer.py</code> -&gt; <code>anonymizer.py</code> -&gt; <code>ai_summarizer.py</code> 순서로 파이프라인을 실행합니다.\n- 작업 완료 후, 통계 분석과 AI 요약이 담긴 <code>chat_report.md</code> 결과물 파일을 깔끔하게 생성합니다.</p>\n<h3 id=\"configpy\">⚙️ <code>config.py</code></h3>\n<ul>\n<li>Gemini API 키 및 모델 파라미터 설정을 관리합니다.</li>\n<li>한도 및 속도 효율이 뛰어난 최신 <code>gemini-2.5-flash</code> 모델을 기본으로 사용합니다.</li>\n</ul>\n<hr />\n<blockquote>\n<p>🔒 <strong>보안 알림:</strong> 이 프로젝트는 사용자의 개인 정보 보안을 최우선으로 합니다. 단어 빈도수나 활동 시간 같은 모든 통계는 로컬(사용자 PC) 오프라인 상태에서 안전하게 처리되며, 철저한 패턴 마스킹(Anonymization)을 거친 문자 조합만이 AI 분석의 재료로 외부 전송됩니다.</p>\n</blockquote>",
+          "summary": "<p>카카오톡이나 텔레그램에서 내보낸 대화 기록 파일(<code>.txt</code>)을 파싱하여 누가 이야기를 많이 했는지, 대화가 언제 활발한지, 어떤 단어를 주로 사용하는지 <code>pandas</code>를 이용해 통계를 내는 Python 도구입니다. 이와 함께 <strong>Gemini API</strong>를 활용하여 재미있는 \"분위기(Vibe) 및 관계 요약\" 리포트를 생성합니다. (Project: <code>06_chat_analyzer</code>)</p>\n<ul>\n<li>🎯 <strong>Target</strong>: 카카오톡 / 텔레그램 내보내기 파일 (<code>.txt</code>)</li>\n<li>🤖 <strong>AI Engine</strong>: Google Gemini (<code>gemini-2.5-flash</code>) - 대화 분위기 및 관계 프로파일링</li>\n<li>🔒 <strong>보안</strong>: 100% 로컬 통계 처리 + PII 완벽 마스킹 후 AI 전송</li>\n</ul>",
+          "filename": "2026-02-22_chat_analyzer.md",
+          "slug": "2026-02-22_chat_analyzer",
+          "reading_time": 4,
+          "word_count": 440,
+          "category": "projects"
+        },
+        {
+          "title": "📊 Stock Screener (이평선 수렴 & RSI 과매도) 개발",
+          "date": "2026-02-21",
+          "formatted_date": "Feb 21, 2026",
+          "tags": [
+            "Python",
+            "FinanceDataReader",
+            "Google Sheets API",
+            "Pandas",
+            "스크리너"
+          ],
+          "content": "<p><strong>이평선 수렴(Moving Average Convergence)</strong> 패턴과 <strong>RSI 과매도 반등(Oversold Rebound)</strong> 패턴을 순수 기술적 지표로 탐지하여, 그 결과를 구글 스프레드시트에 자동으로 기록하는 다중 주식 스크리너 초기 구성입니다. (Project: <code>05_stock_screener</code>)</p>\n<ul>\n<li>🎯 <strong>Target</strong>: 한국 증시 (KOSPI &amp; KOSDAQ), 시가총액 1,000억 이상 종목</li>\n<li>📊 <strong>Notification</strong>: Google Sheets 자동 업데이트 (<code>Stock_screener</code> 문서)</li>\n<li>⏱️ <strong>Schedule</strong>: 로컬 환경 스크립트 실행 (전 종목 순회)</li>\n</ul>\n<!-- more -->\n\n<h2 id=\"1\">🏗️ 1. 시스템 아키텍처</h2>\n<p>이 프로젝트는 현재 두 개의 스크립트로 분리되어, 각기 다른 기술적 분석 전략을 통해 종목을 필터링합니다. 필터링된 결과는 구글 스프레드시트의 각기 다른 탭(<code>Worksheet</code>)으로 일괄 업로드됩니다.</p>\n<h3 id=\"a-1-macd-screener_mapy\">📈 A. 전략 1: 이평선 수렴 &amp; MACD (<code>screener_ma.py</code>)</h3>\n<p>이평선이 한 곳으로 모이며 에너지가 응집되는 패턴을 찾아내는 기본 스크리너입니다.\n*   📐 <strong>이동평균 수렴</strong>: 주가가 최근 횡보하며 5일선, 20일선, 60일선이 아주 좁은 간격(예: 3% 이내)으로 모여 있어야 함.\n*   🔥 <strong>거래량 급증</strong>: 최근 영업일 기준 전일 대비 당일 거래량이 2배 이상 폭증해야 함.\n*   ✅ <strong>MACD 골든크로스</strong>: MACD 라인이 최근 3일 내에 Signal 라인을 상향 돌파하는 시그널 발생.\n*   📋 <strong>구글 시트 출력 탭</strong>: <code>KOSPI</code>, <code>KOSDAQ</code></p>\n<h3 id=\"b-2-rsi-screener_rsipy\">📉 B. 전략 2: RSI 과매도 &amp; 볼린저 하단 반등 (<code>screener_rsi.py</code>)</h3>\n<p>\"역추세 매매 모델\"로, 지나친 하락 후 반등이 시작되는 초입 구간을 잡습니다.\n*   📊 <strong>RSI(14)</strong>: 최근 5일 내에 RSI가 30 이하(과매도)로 진입한 후, 현재 시점에서 다시 30 위로 고개를 들어야 함.\n*   〰️ <strong>볼린저 밴드(20, 2)</strong>: 최근 5일 내에 종가가 볼린저 하단선 아래로 이탈했다가, 현재 시점에서 다시 밴드 내부(하단선 이상)로 복귀해야 함.\n*   📋 <strong>구글 시트 출력 탭</strong>: <code>RSI_KOSPI</code>, <code>RSI_KOSDAQ</code></p>\n<h3 id=\"c-gspread-financedatareader\">🔗 C. 데이터 파이프라인 및 연동 (<code>gspread</code> &amp; <code>FinanceDataReader</code>)</h3>\n<ul>\n<li>💹 <strong>가격 데이터</strong>: <code>FinanceDataReader</code>(<code>fdr</code>)를 이용해 130일 치 OHLCV(고저평종, 거래량) 데이터를 종목별 순차적으로 수집.</li>\n<li>📤 <strong>출력</strong>: <code>gspread</code> 라이브러리를 통해 Google Service Account(<code>credentials.json</code>)로 인증한 뒤, 지정된 스프레드시트에 DataFrame을 투사.</li>\n</ul>\n<h2 id=\"2\">🔧 2. 주요 문제 해결 과정</h2>\n<h3 id=\"a-api-krx\">🚫 A. API 차단 (KRX 공식 포털 접근 제한)</h3>\n<p>초기에는 수급 데이터(외국인, 연기금 무빙) 조회를 위해 한국거래소(KRX) 데이터 포털의 무단(비공식) API를 <code>requests</code>로 직접 호출하려 했습니다.\n하지만 403 Forbidden 등 봇 차단 방어 로직에 막혔습니다.\n*   ❓ <strong>원인</strong>: 브라우저 환경이 아닌 스크립트를 통한 무단 조회 및 세션 토큰 우회를 철저히 차단함.\n*   ✅ <strong>해결</strong>: 1단계로는 이를 우회하지 않고 순수 \"기술적 지표(이평선, 거래량, RSI, 볼린저)\" 기반 스크리너로 노선을 변경함. (이후, 2단계 업그레이드 프로젝트인 Ultimate 버전을 통해 공식 KIS Open API 및 pykrx로 수급을 붙여 해결)</p>\n<h3 id=\"b\">⏳ B. 퍼포먼스 및 시총 필터링 속도 개선</h3>\n<p>전체 상장 종목(약 2,700여 개)을 하나씩 API 호출(<code>fdr.DataReader()</code>)할 경우 30분~40분에 육박하는 상당한 소요 시간이 발생했습니다.\n*   ✅ <strong>해결1 (초기 적용)</strong>: 시가총액 필터를 500억 -&gt; 1,000억 기준으로 상향 조정하여 불필요한 동전주, 잡주를 배제. 이로써 대상 종목 수를 절반 이하로 줄이고 처리 시간을 최적화.\n*   ✅ <strong>해결2 (최종 적용)</strong>: <code>yfinance</code> 패키지의 다중 티커 동시 다운로드 기능(Batch request)을 사용하여 분석 소요 시간을 1분 내외로 획기적으로 감축함.</p>\n<h2 id=\"3\">📚 3. 배운 점</h2>\n<ul>\n<li>💡 <strong>증권 데이터 수집의 한계</strong>: 무단 웹 크롤링이나 비공식 API는 언제든 차단될 요소를 내포하고 있으므로, 안정적인 일 단위 파이프라인에는 공식 OpenAPI 접근 혹은 <code>yfinance</code>/<code>pykrx</code> 등 검증된 정제 라이브러리에 의존하는 방향이 강력함.</li>\n<li>💡 스프레드시트 자동화가 주식 스크리닝 결과를 모니터링하는 데 있어 HTS 구축 대비 생산성이 매우 뛰어남을 확인.</li>\n</ul>",
+          "summary": "<p><strong>이평선 수렴(Moving Average Convergence)</strong> 패턴과 <strong>RSI 과매도 반등(Oversold Rebound)</strong> 패턴을 순수 기술적 지표로 탐지하여, 그 결과를 구글 스프레드시트에 자동으로 기록하는 다중 주식 스크리너 초기 구성입니다. (Project: <code>05_stock_screener</code>)</p>\n<ul>\n<li>🎯 <strong>Target</strong>: 한국 증시 (KOSPI &amp; KOSDAQ), 시가총액 1,000억 이상 종목</li>\n<li>📊 <strong>Notification</strong>: Google Sheets 자동 업데이트 (<code>Stock_screener</code> 문서)</li>\n<li>⏱️ <strong>Schedule</strong>: 로컬 환경 스크립트 실행 (전 종목 순회)</li>\n</ul>",
+          "filename": "2026-02-21_stock_screener.md",
+          "slug": "2026-02-21_stock_screener",
+          "reading_time": 4,
+          "word_count": 493,
+          "category": "projects"
+        },
+        {
+          "title": "🔍 조용한 매집 주식 스크리너 (Ultimate 3-Step) 개발",
+          "date": "2026-02-21",
+          "formatted_date": "Feb 21, 2026",
+          "tags": [
+            "Python",
+            "yfinance",
+            "pykrx",
+            "FinanceDataReader",
+            "Google Sheets API",
+            "스크리너",
+            "퀀트"
+          ],
+          "content": "<p>텔레그램 시그널 봇처럼 <strong>\"조용한 세력 매집 종목\"</strong>을 완벽하게 필터링해 내는 파이프라인(Project: <code>05_stock_screener/screener_quiet.py</code>)의 아키텍처 정리입니다.</p>\n<p>기존 순수 기술적 분석 위주의 스크리너 한계를 극복하고, 네이버 금융/한국거래소(KRX) 공식 수급 데이터를 다이렉트로 결합하여 노이즈를 획기적으로 줄였습니다.</p>\n<!-- more -->\n\n<h2 id=\"1-quiet-accumulation\">🎯 1. 조용한 매집 (Quiet Accumulation) 탐지 조건</h2>\n<p>시장에서 소외된 척 횡보하고 있지만, 뒤에서는 거대 자본이 조용히 지분을 모으고 있는 종목(폭등 전야 패턴)을 찾아냅니다.</p>\n<ul>\n<li>📅 <strong>기간</strong>: 최근 5일 (단기 박스권)</li>\n<li>📈 <strong>수익률</strong>: <code>-5% ~ +10%</code> (크게 오르거나 내리지 않고 가격이 관리되는 상태)</li>\n<li>〰️ <strong>변동성</strong>: <code>15% 이하</code> (5일간 최고가-최저가 / 시가 기준. 휩소나 급등락이 없는 상태)</li>\n<li>💰 <strong>실 투자금 컷</strong>: 시가총액 최소 기준 적용 (코스피 1,000억 이상 / 코스닥 700억 이상)</li>\n<li>🐋 <strong>쌍끌이 수급 (핵심 로직)</strong>: 4대 메이저 수급 주체(외국인, 기관, 연기금, 투신) 중 <strong>최소 2개 이상의 주체</strong>가 각각 5일 누적 <strong>1억 원(100,000,000원) 이상</strong> 순매수 중일 것. (로봇 단타 1~10주 매수 노이즈 원천 차단)</li>\n</ul>\n<h2 id=\"2-3-the-3-step-architecture\">⚡ 2. 3단계 초고속 데이터 파이프라인 (The 3-Step Architecture)</h2>\n<p>수천 개의 틱/일봉/수급 데이터를 하나씩 조회하면 1시간이 넘게 걸리므로, 가장 빠르고 강력한 라이브러리 3개를 목적에 맞게 혼합 구성했습니다.</p>\n<h3 id=\"step-1-financedatareader\">🪜 Step 1. 상장 종목 확보 및 잡주 커팅 (<code>FinanceDataReader</code>)</h3>\n<ul>\n<li>한국거래소 전 종목 리스트 맵핑.</li>\n<li>시가총액 데이터를 기준으로 <strong>코스피 1000억 / 코스닥 700억 미만의 소형주, 동전주를 1차로 모두 탈락</strong>시킵니다. (약 2800개 -&gt; 1300개로 컷)</li>\n</ul>\n<h3 id=\"step-2-yfinance\">🚀 Step 2. 차트/가격/변동성 고속 스크리닝 (<code>yfinance</code>)</h3>\n<ul>\n<li><code>yfinance</code>의 강력한 <code>yf.download()</code> 병렬 처리(Batch) 기능을 이용하여 1차 통과한 1300여 개 종목 전체의 최근 1개월 치 차트 데이터(OHLC)를 <strong>단 1분 만에</strong> 통째로 내려받습니다.</li>\n<li>여기서 초고속 연산을 통해 최근 5일 <strong>수익률과 변동성</strong> 조건을 검사합니다.</li>\n<li>이 단계에서 대부분의 종목이 우수수 떨어져 나가고, 조용한 박스권 종목 소수만 살아남습니다.</li>\n</ul>\n<h3 id=\"step-3-pykrx\">🎯 Step 3. 한국거래소 원천 수급 데이터 정밀 타격 (<code>pykrx</code>)</h3>\n<ul>\n<li>2단계를 통과한 소수 정예 종목들만을 대상으로, KRX 공식 데이터 포털의 <strong>투자자별 매매동향</strong>을 다이렉트로 긁어오는 <code>pykrx</code> 라이브러리를 호출합니다.</li>\n<li>단순 매수 \"수량\"이 아닌 <code>(매수 수량 × 현재 종가)</code>로 환산하여, <strong>정확히 얼마의 현금이 유입되었는지 매수 \"대금\"</strong>을 도출합니다.</li>\n<li>외국인, 기관, 연기금, 투신 4개 팩터 중 2개 이상의 세력이 각각 '1억 원 이상' 매집한 진짜 종목만 최종 선별합니다.</li>\n</ul>\n<h2 id=\"3\">📤 3. 결과 자동 리포팅</h2>\n<ul>\n<li>최종 통과한 종목(보통 코스피/코스닥 합쳐 5~10% 미만의 비율)은 <code>gspread</code>를 통해 Google SpreadSheet의 <strong><code>진짜매집_KOSPI / 진짜매집_KOSDAQ</code></strong> 탭에 자동으로 업데이트됩니다.</li>\n<li>시트에서는 <code>외국인(5.2억) / 투신(1.1억)</code> 과 같이 직관적인 현금 유입 단위로 확인할 수 있어, 추가적인 HTS/MTS 확인 소요를 덜어줍니다.</li>\n</ul>",
+          "summary": "<p>텔레그램 시그널 봇처럼 <strong>\"조용한 세력 매집 종목\"</strong>을 완벽하게 필터링해 내는 파이프라인(Project: <code>05_stock_screener/screener_quiet.py</code>)의 아키텍처 정리입니다.</p>\n<p>기존 순수 기술적 분석 위주의 스크리너 한계를 극복하고, 네이버 금융/한국거래소(KRX) 공식 수급 데이터를 다이렉트로 결합하여 노이즈를 획기적으로 줄였습니다.</p>",
+          "filename": "2026-02-21_stock_screener_quiet.md",
+          "slug": "2026-02-21_stock_screener_quiet",
+          "reading_time": 3,
+          "word_count": 376,
+          "category": "projects"
+        },
+        {
+          "title": "🌐 ResearchLog 구축기 및 업데이트 타임라인",
+          "date": "2026-02-20",
+          "formatted_date": "Feb 20, 2026",
+          "tags": [
+            "Web",
+            "Architecture",
+            "Flask",
+            "Markdown",
+            "Update"
+          ],
+          "content": "<p><strong>Personal Research Archive</strong>를 구축하기 위해 Static Site의 간결함과 Dynamic App의 편의성을 결합한 <strong>Hybrid Architecture</strong>를 설계하고 구현했습니다. 최근 검색 기능 및 태그 필터링 등 사용자 편의성 기능이 추가되었습니다.</p>\n<!-- more -->\n\n<h2 id=\"_1\">🚀 버전 타임라인</h2>\n<h3 id=\"v11-2026-02-20\">v1.1 업데이트 (2026-02-20)</h3>\n<ul>\n<li>🔍 <strong>클라이언트 사이드 실시간 검색</strong>: 단축키 <code>/</code> 지원 및 입력 즉시 로컬에서 결과값을 바로 보여주는 검색 기능 (검색어 하이라이팅 포함)</li>\n<li>🏷️ <strong>태그 필터링 추가</strong>: 전체 항목 보기 및 각 섹션에서 태그 필터 바(Tag Filter Bar)를 활용해 문서를 직관적으로 분류</li>\n<li>✨ <strong>사용자 경험(UI/UX) 개선</strong>: 긴 문서 스크롤 시 상단에 읽기 진행률(Reading Progress Bar) 표시, <code>Esc</code> 키로 검색 빠져나오기 지원</li>\n</ul>\n<h3 id=\"v10-2026-02-17\">v1.0 구축 (2026-02-17)</h3>\n<ul>\n<li>⚙️ <strong>Core</strong>: Python Flask Server + Vanilla JS Frontend 기반 Hybrid Architecture</li>\n<li>💾 <strong>Data</strong>: Markdown Files (제로-데이터베이스 구조)</li>\n<li>📝 <strong>기능</strong>: 폴더에 파일을 넣으면 자동으로 Frontmatter가 파싱되어 사이트에 포스팅되는 워크플로우 적용</li>\n<li>🎨 <strong>디자인</strong>: 모바일 퍼스트 프론트엔드, 고대비 다크 모드(High-Contrast Dark Mode) 및 네온 그린 강조 컬러 도입</li>\n</ul>\n<hr />\n<h2 id=\"_2\">🎯 프로젝트 목표</h2>\n<p>복잡한 CMS(WordPress 등)나 무거운 프레임워크(React/Next.js) 없이, <strong>\"가장 빠르고 간편하게\"</strong> 기록을 남길 수 있는 나만의 공간을 만드는 것이 목표였습니다.</p>\n<h2 id=\"_3\">🏗️ 아키텍처 발전 과정</h2>\n<h3 id=\"phase-1-static-site-pure-htmljs\">📄 Phase 1: Static Site (Pure HTML/JS)</h3>\n<p>처음에는 <code>data.js</code>라는 JSON 파일에 모든 글을 적어넣는 방식을 시도했습니다.\n*   ✅ <strong>장점</strong>: 서버가 필요 없음. 브라우저에서 바로 열림.\n*   ❌ <strong>단점</strong>: 글을 쓸 때마다 JSON 문법(<code>{, }, \"</code>)을 지켜야 해서 매우 불편함.</p>\n<h3 id=\"phase-2-hybrid-flask-markdown\">⚡ Phase 2: Hybrid (Flask + Markdown)</h3>\n<p>\"폴더에 메모장(Markdown) 파일을 던져넣으면 알아서 사이트에 떴으면 좋겠다\"는 니즈를 실현하기 위해 Python Flask를 도입했습니다.</p>\n<ol>\n<li>🖥️ <strong>Backend (<code>app.py</code>)</strong>: <code>content/</code> 폴더 내의 <code>.md</code> 파일들을 스캔하고, HTML로 변환하여 API로 제공합니다.</li>\n<li>🌐 <strong>Frontend (<code>app.js</code>)</strong>: API에서 데이터를 받아와 화면에 렌더링합니다.</li>\n<li>📂 <strong>Content</strong>: 각 폴더(<code>projects</code>, <code>ideas</code> 등)에 마크다운 파일만 관리하면 됩니다.</li>\n</ol>\n<h2 id=\"_4\">🛠️ 핵심 기술 스택</h2>\n<ul>\n<li><strong>Backend</strong>: Python 3.13, Flask, Python-Frontmatter</li>\n<li><strong>Frontend</strong>: HTML5, CSS3 (Variables for Dark Mode), Vanilla JavaScript</li>\n<li><strong>Design</strong>: High-Contrast Dark Mode (Neon Green Accent)</li>\n</ul>",
+          "summary": "<p><strong>Personal Research Archive</strong>를 구축하기 위해 Static Site의 간결함과 Dynamic App의 편의성을 결합한 <strong>Hybrid Architecture</strong>를 설계하고 구현했습니다. 최근 검색 기능 및 태그 필터링 등 사용자 편의성 기능이 추가되었습니다.</p>",
+          "filename": "2026-02-17_research_log_build.md",
+          "slug": "2026-02-17_research_log_build",
+          "reading_time": 3,
+          "word_count": 306,
+          "category": "projects"
+        },
+        {
+          "title": "📰 Smart News Aggregator (News Bot) 개발",
+          "date": "2026-02-16",
+          "formatted_date": "Feb 16, 2026",
+          "tags": [
+            "Python",
+            "Crawling",
+            "Telegram",
+            "Automation"
+          ],
+          "content": "<p><strong>Naver Finance</strong>의 주요 뉴스를 실시간으로 수집하고, <strong>Gemini AI</strong>를 통해 내용을 요약 및 분석하여 <strong>Telegram</strong>으로 알림을 보내주는 인공지능 비서 봇입니다. (Project: <code>02_news_bot</code>)</p>\n<ul>\n<li>🎯 <strong>Target</strong>: 네이버 금융 주요 뉴스 &amp; 실시간 속보</li>\n<li>🤖 <strong>AI Engine</strong>: Google Gemini (gemini-2.5-flash) - 호재/악재 판독 및 3줄 요약</li>\n<li>📬 <strong>Notification</strong>: 텔레그램 봇 API</li>\n<li>⏱️ <strong>Schedule</strong>: 5분 간격 자동 실행</li>\n</ul>\n<!-- more -->\n\n<h2 id=\"1\">🏗️ 1. 시스템 아키텍처</h2>\n<p>이 프로젝트는 크게 <strong>수집(Scraper)</strong>, <strong>저장(Database)</strong>, <strong>AI 분석(AI Enricher)</strong>, <strong>알림(Bot)</strong>, <strong>스케줄링(Scheduler)</strong>의 5가지 모듈로 구성되어 있습니다.</p>\n<h3 id=\"a-scraper-scrapersnaver_financepy\">🕷️ A. Scraper (<code>scrapers/naver_finance.py</code>)</h3>\n<ul>\n<li><code>requests</code>와 <code>BeautifulSoup</code>을 사용하여 네이버 금융 뉴스 페이지를 크롤링합니다.</li>\n<li>⚠️ <strong>인코딩 이슈</strong>: 네이버 금융이 <code>euc-kr</code>을 사용하므로, <code>response.content.decode('euc-kr', 'replace')</code>로 디코딩 처리가 되어 있습니다.</li>\n<li><strong>로직</strong>:<ol>\n<li>목록(<code>ul.newsList</code>)에서 기사 제목, 링크, 요약문 추출</li>\n<li><code>hashlib.md5(link)</code>를 사용하여 기사별 고유 ID 생성 (중복 발송 방지)</li>\n</ol>\n</li>\n</ul>\n<h3 id=\"b-database-databasepy\">💾 B. Database (<code>database.py</code>)</h3>\n<ul>\n<li><strong>SQLite</strong> (<code>news_bot.db</code>)를 사용하여 가볍게 로컬에 데이터를 저장합니다.</li>\n<li>이미 보낸 기사는 DB에 저장하여, 다음 크롤링 때 중복해서 보내지 않도록 필터링합니다.</li>\n</ul>\n<h3 id=\"c-ai-servicesai_enricherpy\">🤖 C. AI 분석 (<code>services/ai_enricher.py</code>)</h3>\n<ul>\n<li><strong>Google Gemini API</strong> (<code>gemini-2.5-flash</code>)를 호출하여 원문 기사를 분석합니다.</li>\n<li>단순한 줄이기가 아닌 프롬프트 엔지니어링을 통해 <strong>\"호재/악재 판도\"</strong>, <strong>\"핵심 3줄 요약\"</strong>, <strong>\"판단 근거\"</strong> 세 가지를 JSON 형태로 명확히 반환받아 정보의 질을 비약적으로 높입니다.</li>\n</ul>\n<h3 id=\"d-telegram-service-servicestelegram_botpy\">📬 D. Telegram Service (<code>services/telegram_bot.py</code>)</h3>\n<ul>\n<li>Telegram Bot API의 <code>sendMessage</code> 메서드를 사용합니다.</li>\n<li>AI가 분석한 호재(📈) 및 악재(📉)에 따라 적절한 이모지를 붙여서 <code>HTML</code> 서식으로 가독성 좋게 발송합니다.</li>\n</ul>\n<h3 id=\"e-scheduler-schedulerpy\">⏱️ E. Scheduler (<code>scheduler.py</code>)</h3>\n<ul>\n<li>Python <code>apscheduler</code> 라이브러리를 사용합니다.</li>\n<li><code>BackgroundScheduler</code>가 메인 프로세스와 별개로 백그라운드에서 주기적으로 크롤링 함수를 실행합니다.</li>\n</ul>\n<h2 id=\"2\">💻 2. 핵심 코드 스니펫</h2>\n<p>가장 핵심이 되는 크롤링 및 중복 검사 로직입니다.</p>\n<pre class=\"codehilite\"><code class=\"language-python\"># Unique ID Generation\nnews_id = hashlib.md5(link.encode()).hexdigest()\n\n# Deduplication Logic\nif item['id'] not in seen_ids:\n    all_news.append(item)\n</code></pre>\n\n<h2 id=\"3\">📚 3. 배운 점</h2>\n<ul>\n<li>💡 <strong>AI 프롬프팅</strong>: AI 모델에게 단순히 \"요약해줘\" 보다 \"엄격한 JSON 형태로 반환해라, 호재/악재/중립만 판독해라, 이유를 적어라\" 같이 명확하게 제약을 거는 시스템 프롬프트가 프로그래밍 연동에 훨씬 효과적임.</li>\n<li>💡 <strong>인코딩 처리</strong>: 한국 웹사이트 크롤링 시 <code>utf-8</code>이 아닌 <code>euc-kr</code> 인코딩 처리가 필수적임.</li>\n<li>💡 <strong>Fallback 설계</strong>: API가 작동하지 않거나 키가 없을 경우를 대비하여 프로그램이 죽지 않고 원본 요약문이라도 내보내는 Fallback(안전 모드) 체계 구축이 필수적임.</li>\n</ul>",
+          "summary": "<p><strong>Naver Finance</strong>의 주요 뉴스를 실시간으로 수집하고, <strong>Gemini AI</strong>를 통해 내용을 요약 및 분석하여 <strong>Telegram</strong>으로 알림을 보내주는 인공지능 비서 봇입니다. (Project: <code>02_news_bot</code>)</p>\n<ul>\n<li>🎯 <strong>Target</strong>: 네이버 금융 주요 뉴스 &amp; 실시간 속보</li>\n<li>🤖 <strong>AI Engine</strong>: Google Gemini (gemini-2.5-flash) - 호재/악재 판독 및 3줄 요약</li>\n<li>📬 <strong>Notification</strong>: 텔레그램 봇 API</li>\n<li>⏱️ <strong>Schedule</strong>: 5분 간격 자동 실행</li>\n</ul>",
+          "filename": "2026-02-17_smart_news_bot.md",
+          "slug": "2026-02-17_smart_news_bot",
+          "reading_time": 3,
+          "word_count": 339,
+          "category": "projects"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "title": "Research",
+      "color": "#89b4fa",
+      "desc": "Deep dives, technical analyses, and findings.",
+      "items": []
+    },
+    {
+      "id": "study",
+      "title": "Study Logs",
+      "color": "#a6e3a1",
+      "desc": "Daily learnings, notes, and breakdowns.",
+      "items": [
+        {
+          "title": "반도체 및 회로 설계 분야 전체 조망 (MOC)",
+          "date": "2026-02-21",
+          "formatted_date": "Feb 21, 2026",
+          "tags": [
+            "Overview",
+            "Semiconductor",
+            "Circuit Design",
+            "Study"
+          ],
+          "content": "<p>대학원 진학 및 향후 연구 분야 선정을 위해 반도체와 회로 설계 분야의 전체 지형도를 정리한 문서다. 이 문서는 각 세부 분야의 핵심 개념, 역할, 그리고 다른 영역들과 어떻게 연결되는지를 파악하기 위한 'Map of Content (MOC)' 역할을 한다.</p>\n<!-- more -->\n\n<hr />\n<p>반도체와 시스템 설계 분야는 크게 <strong>아날로그, 디지털, 메모리, 신호 처리 및 통신, 소자 및 공정, EDA 및 검증</strong>으로 나눌 수 있다. 각 분야는 독립적으로 존재하지 않으며, 거대한 칩(SoC)을 이루기 위해 톱니바퀴처럼 맞물려 돌아간다.</p>\n<h2 id=\"1-analog-mixed-signal\">1. Analog &amp; Mixed-Signal (아날로그/혼성 신호)</h2>\n<p>자연계의 연속적인 신호(빛, 소리, 전파 등)를 다루거나 전력을 관리하는 분야.</p>\n<ul>\n<li><strong>Analog Circuit Design (아날로그 회로 설계)</strong>: 모든 회로의 기본. Op-Amp 설계, 피드백 이론, 주파수 응답 및 안정성 분석이 핵심이다.<ul>\n<li><em>핵심 개념</em>: Op-Amp, Negative Feedback, Phase Margin, Noise Analysis, Biasing Techniques.</li>\n</ul>\n</li>\n<li><strong>Mixed-Signal Design (혼성 신호 설계)</strong>: 아날로그와 디지털의 경계. 아날로그 신호를 0과 1로 변환(ADC)하거나 반대로 변환(DAC)하는 회로를 설계한다.<ul>\n<li><em>핵심 개념</em>: ADC(SAR, Sigma-Delta, Pipeline), DAC, PLL (Phase-Locked Loop), Clock Generation.</li>\n</ul>\n</li>\n<li><strong>RF Circuit Design (고주파 회로 설계)</strong>: 무선 통신 기기(스마트폰, Wi-Fi 공유기 등)의 송수신기를 설계하는 분야. 주파수가 매우 높아 독특한 전송선로 이론과 노이즈 매칭이 필요하다.<ul>\n<li><em>핵심 개념</em>: LNA (Low Noise Amplifier), Mixer, VCO, Power Amplifier, Impedance Matching.</li>\n</ul>\n</li>\n<li><strong>Power Management IC (PMIC, 전력 관리 회로)</strong>: 배터리 전압을 칩 내부의 각 블록이 필요로 하는 다양한 전압으로 안정적으로 변환하고 공급하는 회로 설계. 스마트폰과 전기차에서 그 중요성이 폭발적으로 증가하고 있다.<ul>\n<li><em>핵심 개념</em>: LDO, DC-DC Converter (Buck, Boost), Battery Management.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"2-digital-vlsi-architecture\">2. Digital &amp; VLSI &amp; Architecture (디지털/집적회로/아키텍처)</h2>\n<p>정보를 0과 1의 논리 연산으로 처리하고, 이를 수억 개의 트랜지스터로 구현하는 분야.</p>\n<ul>\n<li><strong>Digital Circuit Design (디지털 하드웨어 설계)</strong>: 논리 게이트를 조합하여 원하는 기능을 수행하는 회로를 설계한다. 주로 Verilog/VHDL 같은 하드웨어 기술 언어(HDL)를 사용한다.<ul>\n<li><em>핵심 개념</em>: Combinational/Sequential Logic, Finite State Machine (FSM), Timing Analysis.</li>\n</ul>\n</li>\n<li><strong>VLSI Design (초고밀도 집적회로 설계)</strong>: 수많은 하드웨어 블록들을 실제 실리콘 위에 어떻게 배치하고 배선할 것인가(Place &amp; Route)를 다루는 백엔드(Back-end) 설계 분야.<ul>\n<li><em>핵심 개념</em>: Standard Cell, Floorplanning, Clock Tree Synthesis (CTS), Signal Integrity.</li>\n</ul>\n</li>\n<li><strong>Computer Architecture (컴퓨터 구조)</strong>: 하드웨어의 두뇌인 프로세서가 명령어를 어떻게 효율적으로, 빠르게 처리할 것인지 설계하는 고차원적인 분야.<ul>\n<li><em>핵심 개념</em>: ISA (RISC-V, ARM), Pipelining, Cache Hierarchy, GPU, Accelerators (NPU).</li>\n</ul>\n</li>\n<li><strong>SoC Design (System-on-Chip)</strong>: CPU, GPU, 메모리 컨트롤러, 모뎀 등 다양한 설계 자산(IP)들을 하나의 거대한 칩으로 엮어내어 칩 전체의 통신 및 시스템 전력을 설계한다.<ul>\n<li><em>핵심 개념</em>: Bus Protocol (AMBA AXI/AHB), IP Reuse, Power Domain.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"3-memory-emerging-devices\">3. Memory &amp; Emerging Devices (메모리 및 소자)</h2>\n<p>데이터를 저장하는 곳. 데이터 센터와 AI 반도체 시대를 맞아 단연코 가장 중요한 병목 지점(Bottleneck)이자 핵심 혁신 분야.</p>\n<ul>\n<li><strong>Memory Design (메모리 설계)</strong>: SRAM, DRAM, 낸드 플래시 메모리의 셀 구조와 단위 데이터를 어떻게 빠르고 에러 없이 읽고 쓸 수 있는지를 설계.<ul>\n<li><em>핵심 개념</em>: 1T1C (DRAM), 6T cell (SRAM), Sense Amplifier, Refresh.</li>\n</ul>\n</li>\n<li><strong>Emerging Memory (차세대 메모리)</strong>: 기존 실리콘 기반 메모리의 한계를 극복하려는 새로운 물질과 구조의 메모리. 전원이 꺼져도 정보를 기억하면서도 속도는 DRAM만큼 빠른 이상적인 메모리를 찾기 위한 연구 분야.<ul>\n<li><em>핵심 개념</em>: MRAM(자기), ReRAM(저항), PCRAM(상변화).</li>\n</ul>\n</li>\n<li><strong>Semiconductor Physics &amp; Process (반도체 물리 및 공정)</strong>: 트랜지스터가 동작하는 본질적인 물리적 원리를 이해(밴드 이론 등)하고, 나노미터 단위의 극초미세 패턴을 깎아내고 쌓는 제조 공정 기술.<ul>\n<li><em>관련 노드</em>: <code>[[Semiconductor Physics]]</code>, <code>[[CMOS Process]]</code></li>\n</ul>\n</li>\n<li><strong>Device Modeling (소자 모델링)</strong>: 물리적 트랜지스터의 동작을 수식으로 만들어, 회로 시뮬레이션 프로그램(SPICE)이 계산할 수 있도록 모델 형태(BSIM 등)로 제공하는 분야.<ul>\n<li><em>관련 노드</em>: <code>[[Device Modeling]]</code></li>\n</ul>\n</li>\n</ul>\n<h2 id=\"4-signal-processing-verification-layout\">4. Signal Processing &amp; Verification &amp; Layout (신호 처리, 검증, 레이아웃)</h2>\n<ul>\n<li><strong>Signal Processing &amp; Communication Systems (신호 처리 및 통신)</strong>: 아날로그 신호를 디지털로 바꾼 후, 노이즈를 걸러내고 원하는 정보만 추출하거나 인코딩하는 기술 영역. 물리적인 RF 회로 위에서 돌아가는 필수 알고리즘 체계다.<ul>\n<li><em>관련 노드</em>: <code>[[Signal Processing]]</code>, <code>[[Communication Systems]]</code></li>\n</ul>\n</li>\n<li><strong>Verification &amp; EDA Tools (검증 및 설계 자동화 도구)</strong>: 설계한 칩에 버그가 없는지 소프트웨어적으로 100% 검증해 내는 방법론과, 칩 설계를 도와주는 강력한 소프트웨어 툴(EDA)을 다루는 분야.<ul>\n<li><em>관련 노드</em>: <code>[[Verification]]</code>, <code>[[EDA Tools]]</code></li>\n</ul>\n</li>\n<li><strong>Layout Design (레이아웃 설계)</strong>: 회로도를 실제 실리콘 웨이퍼 위에 그릴 수 있도록 평면적인 물리적 구조(마스크 패턴)로 변환하는 작업. 아날로그 설계에서는 여전히 수작업 레이아웃의 비중과 노하우가 매우 중요하다.<ul>\n<li><em>관련 노드</em>: <code>[[Layout Design]]</code></li>\n</ul>\n</li>\n</ul>\n<hr />\n<h3 id=\"_1\">마무리 (대학원 선택 기준)</h3>\n<p>이 전체 지도는 <code>[[반도체 회로 설계 맵]]</code>을 중심으로 펼쳐져 있다. 앞으로 공부하면서 각 노드에 노트를 추가하고, 이 지도 안에서 어떤 영역이 나를 흥미롭게 하는지 지속적으로 탐색해 보자. </p>\n<p>특히 <code>[[대학원 선택 기준]]</code> 노트를 통해 내가 시뮬레이션(EDA/Verification)을 좋아하는지, 물리적 구현(Layout/Process)에 관심이 있는지, 아니면 시스템 레벨 구조(Computer Architecture/SoC)에 끌리는지를 파악해 보면 향후 진로를 결정하는 데 큰 도움이 될 것이다.</p>",
+          "summary": "<p>대학원 진학 및 향후 연구 분야 선정을 위해 반도체와 회로 설계 분야의 전체 지형도를 정리한 문서다. 이 문서는 각 세부 분야의 핵심 개념, 역할, 그리고 다른 영역들과 어떻게 연결되는지를 파악하기 위한 'Map of Content (MOC)' 역할을 한다.</p>",
+          "filename": "semiconductor_overview.md",
+          "slug": "semiconductor_overview",
+          "reading_time": 6,
+          "word_count": 713,
+          "category": "study"
+        }
+      ]
+    },
+    {
+      "id": "ideas",
+      "title": "Ideas",
+      "color": "#f9e2af",
+      "desc": "Sparks, hypotheses, and future concepts.",
+      "items": [
+        {
+          "title": "신규 프로젝트 아이디어: 로컬 마크다운 노트 챗봇 (Local RAG)",
+          "date": "2026-02-22",
+          "formatted_date": "Feb 22, 2026",
+          "tags": [
+            "Idea",
+            "AI",
+            "RAG",
+            "Markdown",
+            "LLM"
+          ],
+          "content": "<p>새롭게 진행해 볼 만한 비(非)주식 도메인의 개인 프로젝트 아이디어 정리.</p>\n<h2 id=\"local-rag-for-second-brain\">🧠 개인 맞춤형 마크다운 노트 챗봇 (Local RAG for Second Brain)</h2>\n<h3 id=\"_1\">📌 개요</h3>\n<p>현재 작성 중인 <code>03_research_log</code>, <code>04_knowledge_graph</code>에 쌓인 마크다운 문서들을 벡터 DB에 임베딩하여, \"내가 예전에 이 개념에 대해 뭐라고 정리했지?\" 등의 질문을 던지면 내 과거 기록을 기반으로 답해주는 검색형 AI 비서.</p>\n<h3 id=\"_2\">🛠️ 기술 스택</h3>\n<ul>\n<li><strong>RAG 프레임워크</strong>: <code>LangChain</code> 또는 <code>LlamaIndex</code></li>\n<li><strong>벡터 데이터베이스</strong>: <code>ChromaDB</code> (로컬 파일 시스템에 저장하기 용이)</li>\n<li><strong>임베딩/LLM 모델</strong>: 텍스트 임베딩 모델 연동 + 질문 응답을 생성할 <code>Gemini API</code> </li>\n<li><strong>프론트엔드 UI</strong>: 간단한 프로토타이핑을 위한 <code>Streamlit</code></li>\n</ul>\n<h3 id=\"_3\">🚀 코딩 진행 방향</h3>\n<ol>\n<li><strong>문서 로딩 및 전처리 (<code>loader.py</code>)</strong>:</li>\n<li><code>DirectoryLoader</code>나 <code>UnstructuredMarkdownLoader</code>를 활용해 마크다운의 구조(헤더 단위)를 보존하며 문서를 작은 조각(Chunk)으로 분산.</li>\n<li>링크(<code>[[]]</code>) 포맷이나 프론트매터(Frontmatter) 등 불필요한 메타 기호 필터링.</li>\n<li><strong>임베딩 파이프라인 (<code>indexer.py</code>)</strong>:</li>\n<li>분리된 문서 청크들을 임베딩 모델로 돌려 벡터값으로 변환하고, ChromaDB에 저장. (문서가 수정/추가될 때만 업데이트되도록 관리 요소 필요)</li>\n<li><strong>챗봇 인터페이스 (<code>app.py</code>)</strong>:</li>\n<li>Streamlit으로 채팅창 UI 구성.</li>\n<li>사용자가 질문하면 DB에서 가장 유사도가 높은 청크들을 찾아낸(Retriever) 뒤, 이를 프롬프트의 컨텍스트(Context)로 주입하여 LLM이 자연스러운 요약 답변과 원문 링크(출처)를 제시하도록 구현.</li>\n</ol>",
+          "summary": "<p>새롭게 진행해 볼 만한 비(非)주식 도메인의 개인 프로젝트 아이디어 정리.\n🧠 개인 맞춤형 마크다운 노트 챗봇 (Local RAG for Second Brain)\n📌 개요\n현재 작성 중인 03_research_log, 04_knowledge_graph에 쌓인 마크다운 문서들을 벡터 DB에 임베딩하여, \"내가 예전에 이 개념에 대해 뭐라고 정리했지?\" 등의 질문을 던지면 내 과거 기록을 기반으로 답해주는 검색형 AI 비서.\n🛠️ 기술 스택\n\nRAG 프레임워크: LangChain 또는 LlamaIndex\n벡터 데이터베이스: Chroma...</p>",
+          "filename": "2026-02-22_new_project_ideas.md",
+          "slug": "2026-02-22_new_project_ideas",
+          "reading_time": 2,
+          "word_count": 178,
+          "category": "ideas"
+        },
+        {
+          "title": "독립 프로젝트 아이디어 모음 (기존 프로젝트 비연계)",
+          "date": "2026-02-22",
+          "formatted_date": "Feb 22, 2026",
+          "tags": [
+            "Idea",
+            "Python",
+            "Flask",
+            "AI",
+            "Gemini",
+            "유틸리티"
+          ],
+          "content": "<p>기존 프로젝트와 연계하지 않는, 독립적으로 재미있고 실용적인 프로젝트 아이디어 정리.</p>\n<!-- more -->\n\n<h2 id=\"_1\">🎮 재미 / 개인 프로젝트</h2>\n<h3 id=\"1\">1. 타이핑 속도 테스트</h3>\n<ul>\n<li>랜덤 한글/영문 문장 → WPM 측정, 정확도 분석, 히스토리 그래프</li>\n<li>Flask + vanilla JS로 충분</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"2\">2. 습관 트래커</h3>\n<ul>\n<li>매일 체크하는 습관 기록</li>\n<li>연속 달성 streak, 히트맵(GitHub 잔디 스타일) 시각화</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"3\">3. 밈 제너레이터</h3>\n<ul>\n<li>이미지 업로드 → 텍스트 오버레이</li>\n<li>Pillow로 서버사이드 합성, 갤러리 저장</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"4\">4. 랜덤 메뉴 추천기</h3>\n<ul>\n<li>\"오늘 뭐 먹지?\" → 위치/날씨/시간대 기반 메뉴 추천</li>\n<li>Gemini로 이유까지 설명</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<hr />\n<h2 id=\"_2\">🛠 실용 / 유틸리티</h2>\n<h3 id=\"5\">5. 파일 정리 자동화</h3>\n<ul>\n<li>지정 폴더(다운로드 등) 감시 → 확장자/날짜별 자동 분류</li>\n<li><code>watchdog</code> 라이브러리 활용</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"6-qr\">6. QR 코드 생성기</h3>\n<ul>\n<li>URL/텍스트/WiFi 정보 입력 → QR 이미지 생성</li>\n<li>커스텀 색상/로고 삽입 가능한 웹 UI</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"7-pdf\">7. 마크다운 → PDF 변환기</h3>\n<ul>\n<li><code>.md</code> 파일 업로드 → 깔끔한 PDF 출력</li>\n<li><code>weasyprint</code> 또는 <code>pdfkit</code> 활용</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"8\">8. 클립보드 히스토리</h3>\n<ul>\n<li>복사한 텍스트를 자동 저장, 검색 가능한 히스토리</li>\n<li>시스템 트레이 상주 앱 (<code>pystray</code>)</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<hr />\n<h2 id=\"ai-api\">🤖 AI / API 활용</h2>\n<h3 id=\"9-ai\">9. AI 면접관</h3>\n<ul>\n<li>직무/기술 입력 → Gemini가 면접 질문 생성</li>\n<li>답변 입력 → 실시간 피드백</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"10\">10. 영어 문장 교정기</h3>\n<ul>\n<li>영작 입력 → Gemini가 문법 교정 + 자연스러운 표현 제안 + 난이도 표시</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"11\">11. 유튜브 요약기</h3>\n<ul>\n<li>YouTube URL 입력 → 자막 추출(<code>youtube-transcript-api</code>) → Gemini 요약</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"12-ai\">12. AI 플래시카드</h3>\n<ul>\n<li>주제 입력 → Gemini가 Q&amp;A 카드 자동 생성</li>\n<li>간격 반복(Spaced Repetition) 학습 시스템</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<hr />\n<h2 id=\"_3\">🌐 웹 / 데이터</h2>\n<h3 id=\"13-url\">13. 단축 URL 서비스</h3>\n<ul>\n<li>긴 URL → 짧은 코드 생성</li>\n<li>클릭 수/유입 경로 추적 대시보드</li>\n<li>난이도: ★★★☆☆</li>\n</ul>\n<h3 id=\"14\">14. 날씨 대시보드</h3>\n<ul>\n<li>OpenWeather API → 현재 날씨 + 주간 예보 + 미세먼지</li>\n<li>위젯 스타일 UI</li>\n<li>난이도: ★★☆☆☆</li>\n</ul>\n<h3 id=\"15\">15. 가격 변동 알리미</h3>\n<ul>\n<li>특정 상품 페이지 주기적 크롤링 → 가격 변동 시 알림</li>\n<li>가격 히스토리 차트</li>\n<li>난이도: ★★★★☆</li>\n</ul>\n<hr />\n<h2 id=\"top-3\">개인 추천 TOP 3</h2>\n<table>\n<thead>\n<tr>\n<th>순위</th>\n<th>프로젝트</th>\n<th>이유</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>유튜브 요약기</td>\n<td>매일 실사용 가능, Gemini API 경험 활용</td>\n</tr>\n<tr>\n<td>2</td>\n<td>습관 트래커</td>\n<td>웹 UI 연습에 좋고, 시각적 만족도 높음</td>\n</tr>\n<tr>\n<td>3</td>\n<td>AI 면접관</td>\n<td>실질적 도움, 대화형 UI 구현 경험</td>\n</tr>\n</tbody>\n</table>",
+          "summary": "<p>기존 프로젝트와 연계하지 않는, 독립적으로 재미있고 실용적인 프로젝트 아이디어 정리.</p>",
+          "filename": "2026-02-22_standalone_project_ideas.md",
+          "slug": "2026-02-22_standalone_project_ideas",
+          "reading_time": 2,
+          "word_count": 413,
+          "category": "ideas"
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "title": "Notes",
+      "color": "#89dceb",
+      "desc": "Quick notes and references.",
+      "items": []
+    },
+    {
+      "id": "bookmarks",
+      "title": "Bookmarks",
+      "color": "#fab387",
+      "desc": "Saved links and resources.",
+      "items": []
+    }
+  ],
+  "all_tags": [
+    "AI",
+    "Architecture",
+    "Automation",
+    "Circuit Design",
+    "Crawling",
+    "Data Analysis",
+    "FinanceDataReader",
+    "Flask",
+    "Gemini",
+    "Google Sheets API",
+    "Idea",
+    "Inspiration",
+    "Knowledge Graph",
+    "Korean Stocks",
+    "LLM",
+    "Markdown",
+    "Organization",
+    "Overview",
+    "PDF",
+    "Pandas",
+    "Privacy",
+    "Pykrx",
+    "Python",
+    "Quant",
+    "RAG",
+    "Resume",
+    "Semiconductor",
+    "Study",
+    "Telegram",
+    "TradingView",
+    "Update",
+    "WeasyPrint",
+    "Web",
+    "pykrx",
+    "yfinance",
+    "스크리너",
+    "유틸리티",
+    "퀀트"
+  ],
+  "total_entries": 11,
+  "total_reading_time": 33,
+  "total_word_count": 4068
+}
