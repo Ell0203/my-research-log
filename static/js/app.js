@@ -6,12 +6,16 @@
 const state = {
     siteData: { sections: [], all_tags: [], total_entries: 0, total_reading_time: 0, total_word_count: 0 },
     activeTag: null,
+    activeSubcategory: null,  // null = show all, '' = uncategorized, 'name' = specific subcategory
     currentView: 'dashboard', // 'dashboard' | 'section' | 'all' | 'search'
     currentSection: null,
     sortOrder: 'date-desc',   // 'date-desc' | 'date-asc' | 'title-asc'
     searchDebounce: null,
     openPosts: new Set(),
+    currentPage: 1,
 };
+
+const PAGE_SIZE = 10;
 
 // Section lookup helper (derived from API data)
 function getSectionCfg(id) {
@@ -179,6 +183,7 @@ function renderTagBar(contextItems = null) {
 
 function filterByTag(tag) {
     state.activeTag = (state.activeTag === tag) ? null : tag;
+    state.currentPage = 1;
     if (state.currentView === 'all') {
         loadAllEntries();
     } else if (state.currentView === 'section' && state.currentSection) {
@@ -206,6 +211,7 @@ function renderDashboard() {
     state.currentView = 'dashboard';
     state.currentSection = null;
     state.activeTag = null;
+    state.currentPage = 1;
     setActiveNav('nav-dashboard');
     document.getElementById('tag-filter-bar').hidden = true;
     document.getElementById('search-input').value = '';
@@ -278,6 +284,8 @@ function loadSection(sectionId, autoOpenSlug = null) {
     state.currentView = 'section';
     state.currentSection = sectionId;
     state.activeTag = null;
+    state.activeSubcategory = null;
+    state.currentPage = 1;
     setActiveNav(null);
     updateHash('section', sectionId);
 
@@ -287,11 +295,40 @@ function loadSection(sectionId, autoOpenSlug = null) {
     if (!data || !sec) return;
 
     renderTagBar(data.items);
+    _renderSectionPage(data, sec, autoOpenSlug);
+}
 
+function _renderSectionPage(data, sec, autoOpenSlug = null) {
+    const container = document.getElementById('content-area');
     const sorted = sortItems(data.items);
-    const itemsHtml = sorted.length === 0
-        ? `<div class="empty-state"><p>No entries yet in this section.</p></div>`
-        : sorted.map((item, i) => buildPostCard(item, i)).join('');
+
+    // Apply tag filter
+    let filtered = state.activeTag
+        ? sorted.filter(item => (item.tags || []).includes(state.activeTag))
+        : sorted;
+
+    // Apply subcategory filter
+    if (state.activeSubcategory !== null) {
+        filtered = filtered.filter(item => (item.subcategory || '') === state.activeSubcategory);
+    }
+
+    const subcategories = data.subcategories || [];
+    const hasSubcategories = subcategories.length > 0;
+    const subcatTabsHtml = hasSubcategories ? buildSubcategoryTabs(subcategories, data.items, sec.color) : '';
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    const page = Math.min(state.currentPage, totalPages);
+    const pageItems = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+    let itemsHtml;
+    if (pageItems.length === 0) {
+        itemsHtml = `<div class="empty-state"><p>No entries yet in this section.</p></div>`;
+    } else if (hasSubcategories && state.activeSubcategory === null) {
+        // Group by subcategory when showing all
+        itemsHtml = buildGroupedPostCards(pageItems, (page - 1) * PAGE_SIZE, sec.color);
+    } else {
+        itemsHtml = pageItems.map((item, i) => buildPostCard(item, (page - 1) * PAGE_SIZE + i)).join('');
+    }
 
     container.innerHTML = `
         <button class="back-btn" onclick="renderDashboard()">
@@ -304,7 +341,9 @@ function loadSection(sectionId, autoOpenSlug = null) {
                 ${buildSortControl()}
             </div>
         </div>
+        ${subcatTabsHtml}
         <div class="posts-list">${itemsHtml}</div>
+        ${buildPagination(page, totalPages, 'section')}
     `;
     restoreOpenPosts();
 
@@ -320,6 +359,89 @@ function loadSection(sectionId, autoOpenSlug = null) {
     }
 }
 
+// ── SUBCATEGORY TABS ──────────────────────────────────────────
+function buildSubcategoryTabs(subcategories, items, sectionColor) {
+    // Count items per subcategory
+    const uncatCount = items.filter(i => !i.subcategory).length;
+    const allCount = items.length;
+
+    let tabs = `<button class="subcat-tab ${state.activeSubcategory === null ? 'active' : ''}"
+                    onclick="filterBySubcategory(null)"
+                    style="--subcat-color:${sectionColor}">
+                    전체 <span class="subcat-count">${allCount}</span>
+                </button>`;
+
+    if (uncatCount > 0) {
+        tabs += `<button class="subcat-tab ${state.activeSubcategory === '' ? 'active' : ''}"
+                    onclick="filterBySubcategory('')"
+                    style="--subcat-color:${sectionColor}">
+                    일반 <span class="subcat-count">${uncatCount}</span>
+                </button>`;
+    }
+
+    for (const subcat of subcategories) {
+        const count = items.filter(i => i.subcategory === subcat).length;
+        const displayName = displayLabel(subcat.split('/').pop());
+        const isActive = state.activeSubcategory === subcat;
+        tabs += `<button class="subcat-tab ${isActive ? 'active' : ''}"
+                    onclick="filterBySubcategory('${escHtml(subcat)}')"
+                    style="--subcat-color:${sectionColor}">
+                    ${escHtml(displayName)} <span class="subcat-count">${count}</span>
+                </button>`;
+    }
+
+    return `<div class="subcat-tabs" role="tablist" aria-label="Subcategories">${tabs}</div>`;
+}
+
+function buildGroupedPostCards(items, startIndex, sectionColor) {
+    // Group items by subcategory
+    const groups = new Map();
+    items.forEach((item, i) => {
+        const key = item.subcategory || '';
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push({ item, globalIndex: startIndex + i });
+    });
+
+    let html = '';
+    // Sort: uncategorized first, then alphabetically
+    const sortedKeys = [...groups.keys()].sort((a, b) => {
+        if (a === '') return -1;
+        if (b === '') return 1;
+        return a.localeCompare(b, 'ko');
+    });
+
+    for (const key of sortedKeys) {
+        const groupItems = groups.get(key);
+        const groupLabel = key ? displayLabel(key.split('/').pop()) : '일반';
+        const cardsHtml = groupItems.map(g => buildPostCard(g.item, g.globalIndex)).join('');
+
+        if (sortedKeys.length > 1) {
+            html += `
+                <div class="subcat-group">
+                    <div class="subcat-group-header" style="--subcat-color:${sectionColor}">
+                        <span class="subcat-group-dot" aria-hidden="true"></span>
+                        <span class="subcat-group-name">${escHtml(groupLabel)}</span>
+                        <span class="subcat-group-count">${groupItems.length}</span>
+                    </div>
+                    ${cardsHtml}
+                </div>`;
+        } else {
+            html += cardsHtml;
+        }
+    }
+    return html;
+}
+
+function filterBySubcategory(subcat) {
+    state.activeSubcategory = subcat;
+    state.currentPage = 1;
+    if (state.currentView === 'section' && state.currentSection) {
+        const sec = getSectionCfg(state.currentSection);
+        const data = state.siteData.sections.find(s => s.id === state.currentSection);
+        if (data && sec) _renderSectionPage(data, sec);
+    }
+}
+
 // F4: Open a section and immediately expand a specific entry
 function loadSectionAndOpen(sectionId, slug) {
     loadSection(sectionId, slug);
@@ -329,18 +451,30 @@ function loadSectionAndOpen(sectionId, slug) {
 function loadAllEntries() {
     state.currentView = 'all';
     state.currentSection = null;
+    state.currentPage = 1;
     setActiveNav('nav-all');
     updateHash('all');
 
+    _renderAllPage();
+}
+
+function _renderAllPage() {
     const container = document.getElementById('content-area');
     const allItems = state.siteData.sections.flatMap(s =>
         s.items.map(i => ({ ...i, _section: s.id }))
     );
     const sorted = sortItems(allItems);
+    const filtered = state.activeTag
+        ? sorted.filter(item => (item.tags || []).includes(state.activeTag))
+        : sorted;
 
     renderTagBar(allItems);
 
-    const cardsHtml = sorted.map((item, i) => buildPostCard(item, i)).join('');
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    const page = Math.min(state.currentPage, totalPages);
+    const pageItems = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+    const cardsHtml = pageItems.map((item, i) => buildPostCard(item, (page - 1) * PAGE_SIZE + i)).join('');
 
     container.innerHTML = `
         <button class="back-btn" onclick="renderDashboard()">
@@ -354,8 +488,34 @@ function loadAllEntries() {
             </div>
         </div>
         <div class="posts-list">${cardsHtml}</div>
+        ${buildPagination(page, totalPages, 'all')}
     `;
     restoreOpenPosts();
+}
+
+// ── PAGINATION ────────────────────────────────────────────────
+function buildPagination(page, totalPages, context) {
+    if (totalPages <= 1) return '';
+    const prevDisabled = page <= 1 ? 'disabled' : '';
+    const nextDisabled = page >= totalPages ? 'disabled' : '';
+    return `
+        <div class="pagination">
+            <button class="pagination-btn" ${prevDisabled} onclick="changePage(${page - 1}, '${context}')">← Prev</button>
+            <span class="pagination-info">${page} / ${totalPages}</span>
+            <button class="pagination-btn" ${nextDisabled} onclick="changePage(${page + 1}, '${context}')">Next →</button>
+        </div>`;
+}
+
+function changePage(page, context) {
+    state.currentPage = page;
+    if (context === 'section' && state.currentSection) {
+        const sec = getSectionCfg(state.currentSection);
+        const data = state.siteData.sections.find(s => s.id === state.currentSection);
+        if (data && sec) _renderSectionPage(data, sec);
+    } else if (context === 'all') {
+        _renderAllPage();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── SORT ──────────────────────────────────────────────────────
@@ -385,13 +545,15 @@ function buildSortControl() {
 
 function applySort(order) {
     state.sortOrder = order;
+    state.currentPage = 1;
     if (state.currentView === 'section' && state.currentSection) loadSection(state.currentSection);
     else if (state.currentView === 'all') loadAllEntries();
 }
 
 // ── POST CARD BUILDER ─────────────────────────────────────────
 function buildPostCard(item, index, searchQuery = '') {
-    const uid = `post-${item._section || item.category}-${item.slug}-${index}`;
+    const section = item._section || item.category;
+    const uid = `post-${section}-${item.slug}-${index}`;
     const tags = (item.tags || []);
     const tagHtml = tags
         .map(t => `<span class="tag" onclick="event.stopPropagation();filterByTag('${escHtml(t)}')">${escHtml(t)}</span>`)
@@ -401,10 +563,23 @@ function buildPostCard(item, index, searchQuery = '') {
         ? highlight(escHtml(item.title), searchQuery)
         : escHtml(item.title);
 
-    const sec = getSectionCfg(item._section || item.category);
+    const sec = getSectionCfg(section);
+
+    // ── SUBCATEGORY BADGE ─────────────────────────────────────
+    const subcatBadge = item.subcategory
+        ? `<span class="meta-sep" aria-hidden="true">·</span><span class="subcat-badge" onclick="event.stopPropagation();filterBySubcategory('${escHtml(item.subcategory)}')">${escHtml(displayLabel(item.subcategory.split('/').pop()))}</span>`
+        : '';
+
+    // ── TOC ───────────────────────────────────────────────────
+    const tocHtml = item.toc
+        ? `<nav class="post-toc" aria-label="Table of contents">${item.toc}</nav>`
+        : '';
+
+    // ── RELATED POSTS ─────────────────────────────────────────
+    const relatedHtml = buildRelatedPosts(item, section);
 
     return `
-        <article class="post-card" id="${uid}" data-tags="${tags.map(escHtml).join(',')}" data-uid="${uid}" data-slug="${escHtml(item.slug)}">
+        <article class="post-card" id="${uid}" data-tags="${tags.map(escHtml).join(',')}" data-uid="${uid}" data-slug="${escHtml(item.slug)}" data-section="${escHtml(section)}" data-subcategory="${escHtml(item.subcategory || '')}">
             <div class="post-card-header" onclick="togglePost('${uid}')">
                 <h3>${titleHtml}</h3>
                 <div class="post-meta">
@@ -412,6 +587,7 @@ function buildPostCard(item, index, searchQuery = '') {
                     ${item.formatted_date && item.reading_time ? `<span class="meta-sep" aria-hidden="true">·</span>` : ''}
                     ${item.reading_time ? `<span class="meta-reading">${item.reading_time} min read</span>` : ''}
                     ${sec ? `<span class="meta-sep" aria-hidden="true">·</span><span class="tag" style="cursor:default;pointer-events:none;color:${sec.color};border-color:${sec.color}20;background:${sec.color}10">${sec.title}</span>` : ''}
+                    ${subcatBadge}
                     ${tagHtml ? `<span class="meta-sep" aria-hidden="true">·</span><span class="meta-tags">${tagHtml}</span>` : ''}
                 </div>
             </div>
@@ -425,7 +601,9 @@ function buildPostCard(item, index, searchQuery = '') {
             </div>
             <div class="post-full-wrapper" id="wrapper-${uid}">
                 <div class="post-full-content prose" id="full-${uid}">
+                    ${tocHtml}
                     ${item.content}
+                    ${relatedHtml}
                     <div style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border)">
                         <button class="btn-read-more open" onclick="togglePost('${uid}')">
                             <span class="btn-icon" aria-hidden="true">▴</span> Close
@@ -434,6 +612,48 @@ function buildPostCard(item, index, searchQuery = '') {
                 </div>
             </div>
         </article>`;
+}
+
+// ── RELATED POSTS ─────────────────────────────────────────────
+function buildRelatedPosts(item, section) {
+    const tags = item.tags || [];
+    if (!tags.length) return '';
+
+    const related = [];
+    for (const sec of state.siteData.sections) {
+        for (const candidate of sec.items) {
+            if (candidate.slug === item.slug && (candidate.category || sec.id) === section) continue;
+            const candidateTags = candidate.tags || [];
+            const sharedTags = tags.filter(t => candidateTags.includes(t));
+            if (sharedTags.length > 0) {
+                related.push({ ...candidate, _section: sec.id, _score: sharedTags.length });
+            }
+        }
+    }
+    if (!related.length) return '';
+
+    related.sort((a, b) => b._score - a._score || b.date.localeCompare(a.date));
+    const top3 = related.slice(0, 3);
+
+    const listHtml = top3.map(r => {
+        const rSec = getSectionCfg(r._section);
+        return `
+            <li class="related-post-item">
+                <button class="related-post-link" onclick="loadSectionAndOpen('${escHtml(r._section)}','${escHtml(r.slug)}')">
+                    <span class="related-post-title">${escHtml(r.title)}</span>
+                    <span class="related-post-meta">
+                        ${r.formatted_date ? `<span>${r.formatted_date}</span>` : ''}
+                        ${rSec ? `<span style="color:${rSec.color}">${rSec.title}</span>` : ''}
+                    </span>
+                </button>
+            </li>`;
+    }).join('');
+
+    return `
+        <div class="related-posts">
+            <h4 class="related-posts-title">Related</h4>
+            <ul class="related-posts-list">${listHtml}</ul>
+        </div>`;
 }
 
 // ── POST TOGGLE ───────────────────────────────────────────────
@@ -448,15 +668,27 @@ function togglePost(uid) {
         btn.classList.remove('open');
         btn.innerHTML = `<span class="btn-icon" aria-hidden="true">▾</span> Read Entry`;
         state.openPosts.delete(uid);
+
+        // Restore section hash when closing
+        const card = document.getElementById(uid);
+        const section = card ? card.dataset.section : null;
+        if (section) updateHash('section', section);
     } else {
         wrapper.classList.add('open');
         btn.classList.add('open');
         btn.innerHTML = `<span class="btn-icon" aria-hidden="true">▴</span> Close`;
         state.openPosts.add(uid);
+
+        // Update hash to direct link
+        const card = document.getElementById(uid);
+        const section = card ? card.dataset.section : null;
+        const slug = card ? card.dataset.slug : null;
+        if (section && slug) updateHash('section', section + '/' + slug);
+
         // D3: scroll after animation, account for sticky header height
         setTimeout(() => {
-            const card = document.getElementById(uid);
-            if (card) scrollToWithOffset(card);
+            const cardEl = document.getElementById(uid);
+            if (cardEl) scrollToWithOffset(cardEl);
         }, 360);
     }
 }
@@ -510,6 +742,12 @@ function escHtml(str) {
         .replace(/'/g, '&#39;');
 }
 
+// Convert 'automatic_control' → 'Automatic Control'
+function displayLabel(str) {
+    return str.replace(/_/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+}
+
 // ── HASH ROUTING ──────────────────────────────────────────────
 function updateHash(view, id = '') {
     const hash = id ? `${view}/${id}` : view;
@@ -524,9 +762,22 @@ function restoreFromHash(isInit = false) {
     } else if (hash === 'all') {
         loadAllEntries();
     } else if (hash.startsWith('section/')) {
-        const id = hash.replace('section/', '');
-        if (validIds.includes(id)) loadSection(id);
-        else renderDashboard();
+        const rest = hash.replace('section/', '');
+        // Check for section/{id}/{slug} format
+        const parts = rest.split('/');
+        if (parts.length >= 2) {
+            const sectionId = parts[0];
+            const slug = parts.slice(1).join('/');
+            if (validIds.includes(sectionId)) {
+                loadSectionAndOpen(sectionId, slug);
+            } else {
+                renderDashboard();
+            }
+        } else {
+            const id = rest;
+            if (validIds.includes(id)) loadSection(id);
+            else renderDashboard();
+        }
     } else {
         renderDashboard();
     }

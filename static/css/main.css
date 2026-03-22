@@ -1035,6 +1035,149 @@ svg {
 }
 
 /* ============================================================
+   SUBCATEGORY TABS
+   ============================================================ */
+.subcat-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-3) 0;
+    margin-bottom: var(--space-2);
+    animation: slideDown var(--transition-base) ease;
+}
+
+.subcat-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: var(--bg-mantle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    min-height: 36px;
+    white-space: nowrap;
+}
+
+.subcat-tab:hover {
+    border-color: var(--subcat-color, var(--accent-mauve));
+    color: var(--subcat-color, var(--accent-mauve));
+    background: color-mix(in srgb, var(--subcat-color, var(--accent-mauve)) 8%, transparent);
+}
+
+.subcat-tab.active {
+    background: color-mix(in srgb, var(--subcat-color, var(--accent-mauve)) 15%, transparent);
+    border-color: var(--subcat-color, var(--accent-mauve));
+    color: var(--subcat-color, var(--accent-mauve));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--subcat-color, var(--accent-mauve)) 20%, transparent);
+}
+
+.subcat-count {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    opacity: 0.6;
+    min-width: 1.2em;
+    text-align: center;
+}
+
+.subcat-tab.active .subcat-count {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .subcat-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: var(--space-2);
+    }
+
+    .subcat-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .subcat-tab {
+        flex-shrink: 0;
+    }
+}
+
+/* ============================================================
+   SUBCATEGORY GROUP HEADERS
+   ============================================================ */
+.subcat-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.subcat-group+.subcat-group {
+    margin-top: var(--space-6);
+}
+
+.subcat-group-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+}
+
+.subcat-group-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--subcat-color, var(--accent-mauve));
+    flex-shrink: 0;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--subcat-color, var(--accent-mauve)) 40%, transparent);
+}
+
+.subcat-group-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--subcat-color, var(--text-primary));
+    letter-spacing: -0.01em;
+}
+
+.subcat-group-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    padding: 0.1em 0.5em;
+    background: var(--bg-surface0);
+    border-radius: var(--radius-full);
+}
+
+/* ============================================================
+   SUBCATEGORY BADGE (on post cards)
+   ============================================================ */
+.subcat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.1em 0.6em;
+    background: rgba(137, 180, 250, 0.08);
+    border: 1px solid rgba(137, 180, 250, 0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--accent-sky);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.subcat-badge:hover {
+    background: rgba(137, 180, 250, 0.15);
+    border-color: var(--accent-sky);
+    color: var(--accent-sky);
+}
+
+/* ============================================================
    SORT SELECT
    ============================================================ */
 .sort-select {
@@ -1433,4 +1576,169 @@ svg {
 ::selection {
     background: rgba(203, 166, 247, 0.25);
     color: var(--text-primary);
+}
+
+/* ============================================================
+   TOC (TABLE OF CONTENTS)
+   ============================================================ */
+.post-toc {
+    background: var(--bg-surface0);
+    border-left: 3px solid var(--accent-mauve);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-6);
+    font-size: 0.82rem;
+}
+
+.post-toc::before {
+    content: 'Contents';
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-mauve);
+    margin-bottom: var(--space-2);
+}
+
+.post-toc .toc {
+    padding-left: var(--space-4);
+}
+
+.post-toc ul {
+    padding-left: var(--space-4);
+    list-style: none;
+    margin: 0;
+}
+
+.post-toc li {
+    margin-bottom: var(--space-1);
+    line-height: 1.5;
+}
+
+.post-toc a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    font-family: var(--font-body);
+}
+
+.post-toc a:hover {
+    color: var(--accent-mauve);
+}
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+}
+
+.pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--border-bright);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    background: var(--bg-mantle);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.pagination-btn:hover:not(:disabled) {
+    border-color: var(--accent-mauve);
+    color: var(--accent-mauve);
+    background: rgba(203, 166, 247, 0.08);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    min-width: 60px;
+    text-align: center;
+}
+
+/* ============================================================
+   RELATED POSTS
+   ============================================================ */
+.related-posts {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+}
+
+.related-posts-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-3);
+}
+
+.related-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.related-post-item {
+    margin: 0;
+}
+
+.related-post-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    width: 100%;
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-surface0);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    font: inherit;
+}
+
+.related-post-link:hover {
+    border-color: var(--accent-blue);
+    background: rgba(137, 180, 250, 0.06);
+}
+
+.related-post-title {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+}
+
+.related-post-link:hover .related-post-title {
+    color: var(--accent-blue);
+}
+
+.related-post-meta {
+    display: flex;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
 }

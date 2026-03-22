@@ -1,9 +1,10 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, Response, send_from_directory
 import os
 import re
 import markdown
 import frontmatter
 from datetime import datetime
+import email.utils
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -35,17 +36,19 @@ def _render_wikilinks(text):
     return re.sub(r'\[\[([^\]]+)\]\]', r'<span class="wikilink">\1</span>', text)
 
 
-def _parse_file(filepath, category):
+def _parse_file(filepath, category, subcategory=''):
     """Parse a single .md file and return a data dict."""
     filename = os.path.basename(filepath)
     with open(filepath, 'r', encoding='utf-8') as f:
         post = frontmatter.load(f)
 
-    html_content = markdown.markdown(
-        post.content,
+    md = markdown.Markdown(
         extensions=['fenced_code', 'tables', 'toc', 'codehilite']
     )
+    html_content = md.convert(post.content)
     html_content = _render_wikilinks(html_content)
+
+    toc = md.toc if len(md.toc_tokens) >= 2 else ''
 
     summary = ""
     if "<!-- more -->" in post.content:
@@ -74,6 +77,9 @@ def _parse_file(filepath, category):
         except Exception:
             formatted_date = str(raw_date)
 
+    # Subcategory can be overridden by frontmatter
+    file_subcategory = post.get('subcategory', subcategory)
+
     tags = post.get('tags', [])
     if isinstance(tags, str):
         tags = [t.strip() for t in tags.split(',')]
@@ -90,6 +96,8 @@ def _parse_file(filepath, category):
         'reading_time': reading_time,
         'word_count': word_count,
         'category': category,
+        'subcategory': file_subcategory,
+        'toc': toc,
     }
 
 
@@ -98,13 +106,19 @@ def get_content_files(category):
     if not os.path.exists(category_path):
         return []
 
-    # Collect current mtime snapshot
+    # Collect current mtime snapshot — walk recursively for subcategories
     current_mtimes = {}
-    for filename in os.listdir(category_path):
-        if not filename.endswith('.md'):
-            continue
-        fp = os.path.join(category_path, filename)
-        current_mtimes[fp] = os.path.getmtime(fp)
+    file_subcategories = {}  # fp -> subcategory name
+    for root, dirs, filenames in os.walk(category_path):
+        # Determine subcategory from relative path
+        rel = os.path.relpath(root, category_path)
+        subcategory = '' if rel == '.' else rel.replace(os.sep, '/')
+        for filename in filenames:
+            if not filename.endswith('.md'):
+                continue
+            fp = os.path.join(root, filename)
+            current_mtimes[fp] = os.path.getmtime(fp)
+            file_subcategories[fp] = subcategory
 
     cached = _section_cache.get(category)
     if cached and cached['mtimes'] == current_mtimes:
@@ -116,7 +130,8 @@ def get_content_files(category):
         if fp in _file_cache and _file_cache[fp]['mtime'] == mtime:
             data = _file_cache[fp]['data']
         else:
-            data = _parse_file(fp, category)
+            subcategory = file_subcategories.get(fp, '')
+            data = _parse_file(fp, category, subcategory)
             _file_cache[fp] = {'mtime': mtime, 'data': data}
         files.append(data)
 
@@ -139,12 +154,17 @@ def get_all_content():
         items = get_content_files(section['id'])
         all_items.extend(items)
         total_word_count += sum(i['word_count'] for i in items)
+        # Collect unique subcategories for this section
+        subcategories = sorted(set(
+            item['subcategory'] for item in items if item.get('subcategory')
+        ))
         sections.append({
             'id': section['id'],
             'title': section['title'],
             'color': section['color'],
             'desc': section['desc'],
             'items': items,
+            'subcategories': subcategories,
         })
 
     all_tags = sorted(set(tag for item in all_items for tag in item['tags'] if tag))
@@ -158,6 +178,56 @@ def get_all_content():
         'total_word_count': total_word_count,
     })
 
+
+
+# ── IMAGE / CONTENT FILE SERVING ─────────────────────────────
+@app.route('/content/<path:filename>')
+def serve_content_file(filename):
+    return send_from_directory(CONTENT_DIR, filename)
+
+
+# ── RSS FEED ──────────────────────────────────────────────────
+@app.route('/feed.xml')
+def rss_feed():
+    all_items = []
+    for section in SECTIONS_MAP:
+        for item in get_content_files(section['id']):
+            all_items.append(item)
+
+    all_items.sort(key=lambda x: x['date'], reverse=True)
+    recent = all_items[:20]
+
+    def rfc2822(date_str):
+        try:
+            dt = datetime.strptime(date_str, '%Y-%m-%d')
+            return email.utils.format_datetime(dt)
+        except Exception:
+            return date_str
+
+    items_xml = ''
+    for item in recent:
+        items_xml += f'''
+        <item>
+            <title><![CDATA[{item['title']}]]></title>
+            <link>/#section/{item['category']}/{item['slug']}</link>
+            <guid isPermaLink="false">{item['category']}/{item['slug']}</guid>
+            <pubDate>{rfc2822(item['date'])}</pubDate>
+            <description><![CDATA[{item['summary']}]]></description>
+        </item>'''
+
+    xml = f'''<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Antigravity Research Log</title>
+        <link>/</link>
+        <description>Projects, research, study notes, and ideas.</description>
+        <language>ko</language>
+        <lastBuildDate>{email.utils.formatdate()}</lastBuildDate>
+        {items_xml}
+    </channel>
+</rss>'''
+
+    return Response(xml, mimetype='application/rss+xml')
 
 
 if __name__ == '__main__':
